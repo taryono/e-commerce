@@ -1,7 +1,7 @@
 # e-commerce
 Aplikasi e-commerce menggunakan laravel
 
-#Cara install aplikasi ini
+**Cara install aplikasi ini**
 
 1. Download dengan cara buka url https://github.com/taryono/e-commerce
 2. Sebelah kanan atas ada tombol Clone or download kemudian pilih download zip
@@ -28,8 +28,8 @@ Aplikasi e-commerce menggunakan laravel
   CACHE_DRIVER=file
   SESSION_DRIVER=file
   QUEUE_DRIVER=sync
-  
-  #-------------------------------#
+  \s\s
+  #-------------------------------#\s\s
  7. install composer dengan cara download disini https://getcomposer.org/download/ klik tulisan yang warna biru Composer-Setup.exe jika sudah di install
  8. buka cmd dan ketik ini untuk masuk ke project kamu
   cd \xampp\htdocs\e-commerce
