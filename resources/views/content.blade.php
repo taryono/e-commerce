@@ -1,0 +1,49 @@
+<?php #dump($crafts);  ?>
+<div class="container marketing"> 
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+        <div class="col-lg-12" style="height: 150px;"></div> 
+    </div>
+    @if($crafts->count() > 0) 
+       @foreach($crafts->chunk(round(3)) as $chunks)
+       <div class="row">
+        @foreach($chunks as $craft) 
+			<div class="col-lg-4"> 
+				<img class="rounded-circle" src="/uploads/<?=$craft->craft_image->path.'/'.$craft->craft_image->name ?>" alt="Generic placeholder image" width="140" height="140">
+				<h4>{{$craft->name}}</h4>
+				<table class=" table table-bordered">
+					<tr>
+						<td width="100">Kategori</td>
+						<td>{{$craft->category?$craft->category->name:NULL}} </td>
+					</tr>
+					<tr>
+						<td width="100">Supplier</td>
+						<td>{{$craft->supplier?$craft->supplier->name:NULL}} </td>
+					</tr>
+					<tr>
+						<td width="100">Harga</td>
+						<td>{{$craft->craft_detail?rupiahFormat($craft->craft_detail->price):NULL}} </td>
+					</tr>
+					<tr>
+						<td width="100">Stok</td>
+						<td>{{$craft->craft_detail?$craft->craft_detail->stock:NULL}} </td>
+					</tr>
+				</table>
+				<p><a class="btn btn-secondary" href="{{route('product.detail',$craft->id)}}" role="button">Lihat Detail »</a></p>
+			</div> 
+            @endforeach
+        </div><!-- /.row -->
+        @endforeach
+    @else
+    <div class="row"> 
+        <div class="col-lg-12">
+            Produk tidak ditemukan...
+        </div>   
+    </div>
+    <p><a class="btn btn-secondary" href="{{route('product.index')}}" role="button">Kembali << </a></p>
+    @endif
+    <hr class="featurette-divider">
+
+    <!-- /END THE FEATURETTES -->
+
+</div><!-- /.container --> 
