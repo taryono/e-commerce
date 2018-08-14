@@ -10,23 +10,23 @@ Aplikasi e-commerce menggunakan laravel
 5. Buka C://xampp/htdocs dan taro project disitu dan buka phpmyadmin import olx.sql yang ada di folder database
 6. Jika sudah berhasil import selanjutnya setting config dengan membuka file env.local dan edit
 
-  APP_NAME='Handi Craft'
-  APP_ENV=local
-  APP_KEY=base64:dyaja3NhfcdFfaYqK5cy4hG2ts/Lh87sjN0v5Mm4H9Y=
-  APP_DEBUG=true
-  APP_LOG_LEVEL=debug
-  APP_URL=http://localhost
+  APP_NAME='Handi Craft'\s\s
+  APP_ENV=local\s\s
+  APP_KEY=base64:dyaja3NhfcdFfaYqK5cy4hG2ts/Lh87sjN0v5Mm4H9Y=\s\s
+  APP_DEBUG=true\s\s
+  APP_LOG_LEVEL=debug\s\s
+  APP_URL=http://localhost\s\s
 
-  DB_CONNECTION=mysql
-  DB_HOST=127.0.0.1
-  DB_PORT=3306
-  DB_DATABASE=olx
-  DB_USERNAME=root  #<---------- user mysql sesuaikan dengan user mysql dikomputer kamu
-  DB_PASSWORD=      #<---------- password mysql sesuaikan dengan password mysql dikomputer kamu
+  DB_CONNECTION=mysql\s\s
+  DB_HOST=127.0.0.1\s\s
+  DB_PORT=3306\s\s
+  DB_DATABASE=olx\s\s
+  DB_USERNAME=root  #<---------- user mysql sesuaikan dengan user mysql dikomputer kamu\s\s
+  DB_PASSWORD=      #<---------- password mysql sesuaikan dengan password mysql dikomputer kamu\s\s
 
-  BROADCAST_DRIVER=log
-  CACHE_DRIVER=file
-  SESSION_DRIVER=file
+  BROADCAST_DRIVER=log\s\s
+  CACHE_DRIVER=file\s\s
+  SESSION_DRIVER=file\s\s
   QUEUE_DRIVER=sync\s\s
  
  7. install composer dengan cara download disini https://getcomposer.org/download/ klik tulisan yang warna biru Composer-Setup.exe jika sudah di install
