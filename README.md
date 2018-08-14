@@ -27,9 +27,8 @@ Aplikasi e-commerce menggunakan laravel
   BROADCAST_DRIVER=log
   CACHE_DRIVER=file
   SESSION_DRIVER=file
-  QUEUE_DRIVER=sync
-  \s\s
-  #-------------------------------#\s\s
+  QUEUE_DRIVER=sync\s\s
+ 
  7. install composer dengan cara download disini https://getcomposer.org/download/ klik tulisan yang warna biru Composer-Setup.exe jika sudah di install
  8. buka cmd dan ketik ini untuk masuk ke project kamu
   cd \xampp\htdocs\e-commerce
