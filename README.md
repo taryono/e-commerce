@@ -4,10 +4,10 @@ Aplikasi e-commerce menggunakan laravel
 #Cara install aplikasi ini
 
 1. Download dengan cara buka url https://github.com/taryono/e-commerce
-2. Sebelah kanan atas ada tombo Clone or download kemudian pilih download zip
+2. Sebelah kanan atas ada tombol Clone or download kemudian pilih download zip
 3. Jika sudah berhasil download extract zip taro folder e-commerce ini ke server local anda
 4. Jika anda menggunakan xampp dan diinstall di C://xampp
-5. Buka C://xampp/htcods dan taro project disitu dan buka phpmyadmin import olx.sql yang ada di folder database
+5. Buka C://xampp/htdocs dan taro project disitu dan buka phpmyadmin import olx.sql yang ada di folder database
 6. Jika sudah berhasil import selanjutnya setting config dengan membuka file env.local dan edit
 
   APP_NAME='Handi Craft'
