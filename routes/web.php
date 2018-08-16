@@ -32,6 +32,8 @@ Route::get('/admin/home', 'Admin\AdminController@index')->name('admin');
   PUT/PATCH	/photos/{photo}	update      photos.update
   DELETE	/photos/{photo}         destroy     photos.destroy
  */
+Route::get('comment/getUsers', 'CommentController@getUsers');
+Route::get('comment/list_comments/{craft_id}', 'CommentController@list_comments');
 $controllers = \App\Models\Controller::all();
 foreach ($controllers as $controller) {
     //Route::resource($controller->title, $controller->name); 
@@ -60,7 +62,3 @@ foreach ($menus as $m) {
     }
 } 
 Route::get('/detail/{id}', ['as' => 'product.detail', 'uses' => 'ProductController@detail']);
-Route::get('/comments/getComments/{craft_id}', ['as' => 'comments.getComments', 'uses' => 'CommentController@getComments']);
-Route::get('/comments/getUsers', ['as' => 'comments.getUsers', 'uses' => 'CommentController@getUsers']);
-Route::post('/comments/postComments', ['as' => 'comments.postComments', 'uses' => 'CommentController@postComments']);
-Route::put('/comments/putComments/{id}', ['as' => 'comments.putComments', 'uses' => 'CommentController@putComments']);
