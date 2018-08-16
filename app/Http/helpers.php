@@ -97,7 +97,7 @@ function groupMenu($group_id) {
 }
 
 function menuBuilder($name, $type, $param = NULL) {
-    $route = '<a href="/';
+    $route = '<a href="';
     if ($type == "edit") {
         $route .= $name . "/" . $param . '/edit" >';
     } elseif ($type == "update" || $type == "show" || $type == "destroy") {

@@ -17,11 +17,11 @@ class CommentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $testimonies = Comment::paginate(20);
-        return view('employee.testimony.list', compact('testimonies'));
+        $comments = Comment::all();
+        return response()->json($comments);
     }
     
-    public function getUsers(Request $request) {
+    public function getUsers(Request $request) { 
         foreach(\App\User::all() as $user ){
              $data[] = [
                  'id'=> $user->id,
@@ -35,11 +35,11 @@ class CommentController extends Controller {
     }
     
     public function getComments(Request $request) { 
-        return response()->json(Comment::all()->toArray());
+         $comments = Comment::all();
+        return response()->json($comments);
     }
     
-    public function postComments(Request $request) { 
-        dd($request->input());
+    public function postComments(Request $request) {  
          Comment::create($request->input());
          return response()->json(Comment::all()->toArray());
     }
@@ -51,7 +51,7 @@ class CommentController extends Controller {
     }
 
     public function create(Request $request) {
-        return view('employee.testimony.create');
+        return view('employee.comment.create');
     }
 
     /**
@@ -60,22 +60,35 @@ class CommentController extends Controller {
      * @param  array  $data
      * @return User
      */
-    public function store(Request $request) {
-        $data = $request->input();
-        $testimony = Comment::create([
-                    'name' => $data['name'],
-        ]);
-        return redirect($this->redirectTo);
+    public function store(Request $request) { 
+        $comment = $request->input('comment');
+        $data =  [
+            "id" => $comment['id'],
+            "parent" => $comment['parent'],
+            "created" => $comment['created'],
+            "modified" => $comment['modified'],
+            "content" => $comment['content'],
+            "fullname" => (Auth::check())?$request->user()->user_detail->first_name.' '.$request->user()->user_detail->last_name:"No Name",
+            "profile_picture_url" => $comment['profile_picture_url'],
+            "created_by_current_user" => true,
+            "upvote_count" => $comment['upvote_count'],
+            "user_has_upvoted" => $comment['user_has_upvoted'],
+        ];
+        $commented = Comment::create($data);
+        $commented->craft_id = $request->input('craft_id');
+        $commented->user_id = (Auth::check())?$request->user()->id:1;
+        $commented->save();
+        return response()->json($comment);
     }
 
     public function show($id) {
-        $testimony = Comment::find($id);
-        return view('employee.testimony.view', compact('testimony'));
+        $comment = Comment::find($id);
+        return view('employee.comment.view', compact('comment'));
     }
 
     public function edit($id) {
-        $testimony = Comment::find($id);
-        return view('employee.testimony.edit', compact('testimony'));
+        $comment = Comment::find($id);
+        return view('employee.comment.edit', compact('comment'));
     }
 
     /**
@@ -86,34 +99,31 @@ class CommentController extends Controller {
      */
     public function update(Request $request, $id) {
         $data = $request->input();
-        $testimony = Comment::find($id);
-        if ($testimony) {
-            $testimony->update([
+        $comment = Comment::find($id);
+        if ($comment) {
+            $comment->update([
                 'name' => $data['name'], 
             ]);
         }
         return redirect($this->redirectTo);
     }
     
-    public function list_testimonies($craft_id) { 
-        $testimonies = Comment::where('craft_id', $craft_id)->get(); 
+    public function list_comments($craft_id) { 
+        $comments = Comment::where('craft_id', $craft_id)->get(); 
         $user_ids = [];
-        if($testimonies->count() > 0){
-            foreach($testimonies as $t){
+        if($comments->count() > 0){
+            foreach($comments as $t){
                 $user_ids[] = $t->user_id;
             }
         }
-        $users = \App\User::whereIn('id', $user_ids)->get(); 
-        
-        $data['commentsArray'] = $testimonies;
-        $data['users'] = $users;
-        return response()->json($data);
+        $users = \App\User::whereIn('id', $user_ids)->get();  
+        return response()->json($comments->toArray());
     }
 
     public function destroy($id) {
-        $testimony = Comment::find($id);
-        if ($testimony) {
-            return response()->json(['success' => $testimony->delete(), 'redirect' => 'testimony'], 200);
+        $comment = Comment::find($id);
+        if ($comment) {
+            return response()->json(['success' => $comment->delete(), 'redirect' => 'comment'], 200);
         }
         abort(404);
     }
