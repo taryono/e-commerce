@@ -123,6 +123,12 @@
                         <td colspan="2"></td>                       
                     </tr>
                 </table>
+                <?php $user_id = NULL; ?>
+                @if(Auth::check())
+                 <?php $user_id = Auth::user()->id; ?> 
+                @else
+                
+                @endif
                 @if(Auth::check() && Auth::user()->hasRole('customer'))
                 <table class="table table-responsive"> 
                     <caption><h4>Alamat Pengiriman</h4></caption>
@@ -293,8 +299,8 @@ $(function () {
             return data;
         }*/
         $('#comments-container').comments({
-            profilePictureURL: 'https://viima-app.s3.amazonaws.com/media/user_profiles/user-icon.png',
-            currentUserId: 1,
+            profilePictureURL: '/images/slide-2.jpeg',
+            currentUserId: '{{$user_id}}',
             roundProfilePictures: true,
             textareaRows: 1,
             enableAttachments: true,
@@ -302,6 +308,8 @@ $(function () {
             enablePinging: true,
             maxRepliesVisible: 3,
             enableReplying: true,
+            //currentUserIsAdmin: true,
+            created_by_current_user: true,
             /*
             getUsers: function (success, error) {
                 setTimeout(function () {
@@ -309,20 +317,18 @@ $(function () {
                 }, 500);
             }*/
             getUsers: function(success, error) {
-                $.ajax({
-                    type: 'get',
-                    url: '/comments/getUsers/',
-                    success: function(userArray) {
-                        success(userArray)
-                    },
-                    error: error
-                });
+                $.get('{{url("comment/getUsers")}}',function(e){ 
+                    var userArray = e;
+                    success(userArray)
+                    } 
+                );
             },
             getComments: function(success, error) { 
                 $.ajax({
                     type: 'get',
-                    url: '/comments/getComments/'+craft_id,
-                    success: function(commentsArray) {
+                    url: '{{url("comment/list_comments", $craft->id)}}',
+                    success: function(e) {
+                        var commentsArray = e;
                         success(commentsArray)
                     },
                     error: error
@@ -342,10 +348,10 @@ $(function () {
             postComment: function(commentJSON, success, error) {
                 $.ajax({
                     type: 'post',
-                    url: '/comments/postComments/',
-                    data: commentJSON,
+                    url: '{{route("comment.store")}}',
+                     data: {comment: commentJSON, craft_id: 1},
                     success: function(comment) {
-                        success(comment)
+                        success(comment) 
                     },
                     error: error
                 });
@@ -359,7 +365,7 @@ $(function () {
             putComment: function(commentJSON, success, error) {
                 $.ajax({
                     type: 'put',
-                    url: '/comments/putComments/' + commentJSON.id,
+                    url: '{{/comment/update/' + commentJSON.id,
                     data: commentJSON,
                     success: function(comment) {
                         success(comment)
