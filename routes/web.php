@@ -32,8 +32,24 @@ Route::get('/admin/home', 'Admin\AdminController@index')->name('admin');
   PUT/PATCH	/photos/{photo}	update      photos.update
   DELETE	/photos/{photo}         destroy     photos.destroy
  */
+$menus = \App\Models\Menu::where('is_show', 1)->get();
+
+foreach ($menus as $m) {
+    if ($m->method == "get") {
+        Route::get($m->name, $m->controller->name . $m->action)->name($m->route);
+    }else{
+        Route::post($m->name, $m->controller->name . $m->action)->name($m->route);
+    }
+} 
+Route::get('/detail/{id}', ['as' => 'product.detail', 'uses' => 'ProductController@detail']);
 Route::get('comment/getUsers', 'CommentController@getUsers');
 Route::get('comment/list_comments/{craft_id}', 'CommentController@list_comments');
+Route::get('cart/list_by_cart/{cart_id}', ['as'=> 'cart.list_by_cart', 'uses'=> 'Customer\CartController@list_by_cart']);
+Route::get('cart/update_cart/{cart_detail_id}', ['as'=> 'cart.update_cart', 'uses'=> 'Customer\CartController@get_cart_detail']);
+Route::put('cart/update_cart_detail/{cart_detail_id}', ['as'=> 'cart.update_cart_detail', 'uses'=> 'Customer\CartController@update_cart_detail']);
+Route::delete('cart/delete_cart/{cart_detail_id}', ['as'=> 'cart.delete_cart', 'uses'=> 'Customer\CartController@delete_cart_detail']);
+Route::get('cart/paid/{cart_id}', ['as'=> 'cart.paid', 'uses'=> 'Customer\CartController@paid']);
+
 $controllers = \App\Models\Controller::all();
 foreach ($controllers as $controller) {
     //Route::resource($controller->title, $controller->name); 
@@ -52,13 +68,4 @@ foreach ($controllers as $controller) {
     // Frontend post resource
     $router->resource($title, $name);
 }
-$menus = \App\Models\Menu::where('is_show', 1)->get();
 
-foreach ($menus as $m) {
-    if ($m->method == "get") {
-        Route::get($m->name, $m->controller->name . $m->action)->name($m->route);
-    }else{
-        Route::post($m->name, $m->controller->name . $m->action)->name($m->route);
-    }
-} 
-Route::get('/detail/{id}', ['as' => 'product.detail', 'uses' => 'ProductController@detail']);
