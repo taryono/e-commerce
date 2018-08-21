@@ -86,26 +86,17 @@ class CustomerController extends EmployeeController
      * @return User
      */
     public function update(Request $request, $id) {
-        $data = $request->input();
-         
-        if(array_key_exists('roles', $data)){
-            $user = User::find($id);
-            if($user){
-                 $user->update([
-                            'name' => $data['name'],
-                            'email' => $data['email'],
-                            'address' => $data['address'],
-                            'cellphone' => $data['cellphone'],
-                            'phone_number' => $data['phone_number'],
-                            'date_of_birth' => $data['date_of_birth'],
-                            'sex' => $data['sex'],
-                            'position' => $data['position'], 
-                ]);
-            }
-           
-            $user->roles()->detach(); 
-            $user->roles()->attach(Role::where('name', 'customer')->first());
-        } 
+        $data = $request->input(); 
+        $user = User::find($id);
+        $user->user_detail->update([
+                'first_name'=> $data['first_name'],
+                'last_name'=> $data['last_name'],
+                'date_of_birth'=> $data['date_of_birth'],
+                'sex'=> $data['sex'],
+                'address'=> $data['address'],
+                'cellphone'=> $data['cellphone'],
+                'phone_number'=> $data['phone_number'],
+            ]); 
         return  redirect()->route('customer.index');
     }
 }

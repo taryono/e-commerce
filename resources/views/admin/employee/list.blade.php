@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">List Employees <div style="text-align: right">{!!getActions('employee','create')?getActions('employee','create'):NULL!!}</div></div>
+                <div class="panel-heading">List Pegawai <div style="text-align: right">{!!getActions('employee','create')?getActions('employee','create'):NULL!!}</div></div>
 
                 <div class="panel-body">
                     <table class="table table-striped table-check">
@@ -19,19 +19,19 @@
                             </tr> 
                         </thead>
                         <tbody> 
-                            @foreach($employees as $key => $c)
+                            @foreach($users as $key => $c)
                             <tr class="ordering">
                                 <th width="10px">{{++$key}}</th>
-                                <th width="10px">{{$c->name}}</th>  
+                                <th width="10px">{{$c->user_detail?$c->user_detail->first_name:NULL}} &nbsp; {{$c->user_detail?$c->user_detail->last_name:NULL}}</th>  
                                 <th width="10px">{{$c->email}}</th>
-                                <th width="10px">{{$c->address}}</th>
+                                <th width="10px">{{$c->user_detail?$c->user_detail->address:NULL}}</th>
                                 <th width="10px">{!!getActions('employee','edit', $c->id)?getActions('employee','edit', $c->id):NULL!!}&nbsp;{!!getActions('employee','destroy', $c->id)?getActions('employee','destroy', $c->id):NULL!!}</th> 
                             </tr>
                             @endforeach
                         </tbody>
                     </table> 
                     <div class="table-list-footer">
-                        <span class="result-count">{{$employees->links()}}</span> 
+                        <span class="result-count">{{$users->links()}}</span> 
                     </div>
                 </div>
                 

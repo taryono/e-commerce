@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Edit Employee :<b>{{$employee->name}}</b></div>
+                <div class="panel-heading">Edit Pegawai :<b>{{$employee->name}}</b></div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('employee.update',$employee->id) }}">
@@ -92,14 +92,13 @@
                         </div>
                         <div class="form-group{{ $errors->has('sex') ? ' has-error' : '' }}">
                             <label for="sex" class="col-md-4 control-label">Jenis Kelamin</label> 
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                 <label class="radio-inline">
-                                    <input id="name" type="radio" class="radio" name="sex" value="F" required autofocus {{(($employee->sex == "F")?"checked='checked'":"")}}>Female
+                                    <input id="name" type="radio" class="radio" name="sex" value="M" required autofocus {{(($employee->sex == "M")?"checked='checked'":"")}}>Laki - laki 
                                 </label>
                                 <label class="radio-inline">
-                                    <input id="name" type="radio" class="radio" name="sex" value="M" required autofocus {{(($employee->sex == "M")?"checked='checked'":"")}}>Male
+                                    <input id="name" type="radio" class="radio" name="sex" value="F" required autofocus {{(($employee->sex == "F")?"checked='checked'":"")}}>Perempuan
                                 </label>
-                                 
                                 @if ($errors->has('sex'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('sex') }}</strong>

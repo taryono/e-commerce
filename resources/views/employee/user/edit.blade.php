@@ -11,20 +11,30 @@
                     <form class="form-horizontal" method="POST" action="{{ route('customer.update',$user->id) }}">
                         {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PUT">
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Nama</label>
+                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Nama Depan</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{$user->name}}" required autofocus>
-
-                                @if ($errors->has('name'))
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{$user->user_detail->first_name}}" required autofocus>
+                                @if ($errors->has('first_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Nama Depan</label>
 
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{$user->user_detail->last_name}}" required autofocus>
+                                @if ($errors->has('last_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Alamat Email</label>
 
@@ -92,14 +102,13 @@
                         </div>
                         <div class="form-group{{ $errors->has('sex') ? ' has-error' : '' }}">
                             <label for="sex" class="col-md-4 control-label">Jenis Kelamin</label> 
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                 <label class="radio-inline">
-                                    <input id="name" type="radio" class="radio" name="sex" value="F" required autofocus {{(($user->user_detail->sex == "F")?"checked='checked'":"")}}>Female
+                                    <input id="name" type="radio" class="radio" name="sex" value="M" required autofocus {{(($user->user_detail->sex == "M")?"checked='checked'":"")}}>Laki - laki
                                 </label>
                                 <label class="radio-inline">
-                                    <input id="name" type="radio" class="radio" name="sex" value="M" required autofocus {{(($user->user_detail->sex == "M")?"checked='checked'":"")}}>Male
+                                    <input id="name" type="radio" class="radio" name="sex" value="F" required autofocus {{(($user->user_detail->sex == "F")?"checked='checked'":"")}}>Perempuan
                                 </label>
-                                 
                                 @if ($errors->has('sex'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('sex') }}</strong>
@@ -107,7 +116,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--div class="form-group">
                             <label for="position" class="col-md-4 control-label">Jabatan</label> 
                             <div class="col-md-6">
                                 <select name="position" class="form-control"> 
@@ -120,14 +129,14 @@
                                     
                                 </select>
                             </div>
-                        </div>
+                        </div-->
                     <?php
                     $rs = [];
                         foreach($user->roles()->get() as $r){
                            $rs[] = $r->name; 
                         }
                     ?>
-                        <div class="form-group">
+                        <!--div class="form-group">
                             <label for="roles" class="col-md-4 control-label">Role</label> 
                             <div class="col-md-6">
                                 <select name="roles[]" class="form-control" id="example-getting-started" multiple="multiple">
@@ -136,7 +145,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div-->
                         <div class="form-group"> 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -154,4 +163,5 @@
         </div>
     </div>
 </div>
+
 @endsection

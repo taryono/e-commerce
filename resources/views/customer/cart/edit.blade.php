@@ -66,7 +66,7 @@
                         <td style="width: 150px">Jasa Pengiriman </td>
                         <td> 
                             <div class="form-group">  
-                                <select id="courier_id" name="courier_id" class="form-control">
+                                <select id="courier_id" name="courier_id" class="form-control example-getting-started">
                                     @foreach($couriers as $s)
                                     <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
                                     @endforeach
@@ -137,7 +137,7 @@
                         <td style="width: 150px">To </td>
                         <td> 
                             <div class="form-group">  
-                                <select name="to_province_id" class="form-control" id="to_province_id_changed">
+                                <select name="to_province_id" class="form-control example-getting-started" id="to_province_id_changed">
                                     @foreach($provinces as $p)
                                     <option data-km='{{$p->km}}' value="{{$p->id}}" {{($p->id==$cart->to_province_id)?'selected="selected"':''}}>{{ucfirst($p->name)}}</option>
                                     @endforeach

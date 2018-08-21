@@ -9,12 +9,31 @@
 @endsection
 @section('content') 
 <!--@@include('layouts.carousel') -->
+<div class="container-fluid">  
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"> 
+                <div class="jumbotron">
+                    <h2>
+                        Assalamu'alaikum wrwb,
+                    </h2>
+                    <p>
+                        Selamat datang diwebsite kami
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-large" href="#">Selengkapnya</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid"> 
     <div class="container"> 
         <div class="row"> 
             <div class="col-md-6">
                 <div id="wrapper">
-                    
+
                     <div class="section"> 
                         <a href="/uploads/<?= $craft->craft_image->path . '/' . $craft->craft_image->name ?>" class="zoomple">
                             <img src="/uploads/<?= $craft->craft_image->path . '/' . $craft->craft_image->name ?>" alt="" width="300px" height="300px"> </a>
@@ -76,7 +95,7 @@
                         <td style="width: 150px">Jasa Pengiriman </td>
                         <td> 
                             <div class="form-group">  
-                                <select name="supplier_id" class="form-control" style="width: 150px;">
+                                <select name="supplier_id" class="form-control example-getting-started" style="width: 150px;">
                                     @foreach($couriers as $s)
                                     <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
                                     @endforeach
@@ -123,11 +142,12 @@
                         <td colspan="2"></td>                       
                     </tr>
                 </table>
-                <?php $user_id = NULL; ?>
+                <?php $user_id = NULL; $is_logged_in = 0;?>
                 @if(Auth::check())
-                 <?php $user_id = Auth::user()->id; ?> 
-                @else
-                
+                    <?php 
+                    $user_id = Auth::user()->id;
+                     $is_logged_in = 1;
+                    ?> 
                 @endif
                 @if(Auth::check() && Auth::user()->hasRole('customer'))
                 <table class="table table-responsive"> 
@@ -148,7 +168,7 @@
                         <td style="width: 150px">Tujuan </td>
                         <td> 
                             <div class="form-group">  
-                                <select name="from_province_id" class="form-control" style="width: 150px;">
+                                <select name="from_province_id" class="form-control example-getting-started" style="width: 150px;">
                                     @foreach($provinces as $p)
                                     <option value="{{$p->id}}">{{ucfirst($p->name)}}</option>
                                     @endforeach
@@ -184,7 +204,7 @@
                         <input id='subtotal' type="hidden" name="subtotal" value="{{$craft->craft_detail?(int)$craft->craft_detail->price:0}}"> 
                         @if(Auth::check() && Auth::user()->hasRole('customer'))
                         <div class="form-group">   
-                            <button class="button btn-success form-control" id="pay">Add to Cart</button>                        
+                            <button class="button btn-success form-control" id="pay">Tambahkan ke Keranjang Belanja</button>                        
                         </div>
                         @endif
                     </form>
@@ -286,18 +306,23 @@ $(function () {
 <script type="text/javascript">
     $(function () {
         var craft_id = 1;
+        var login = '{{$is_logged_in}}';
+        var readOnly = true;
+        if(login == 1){
+            readOnly = false;
+        }
         /*
-        var saveComment = function (data) {
-            // Convert pings to human readable format
-            $(data.pings).each(function (index, id) {
-                var user = usersArray.filter(function (user) {
-                    return user.id == id
-                })[0];
-                data.content = data.content.replace('@' + id, '@' + user.fullname);
-            });
-
-            return data;
-        }*/
+         var saveComment = function (data) {
+         // Convert pings to human readable format
+         $(data.pings).each(function (index, id) {
+         var user = usersArray.filter(function (user) {
+         return user.id == id
+         })[0];
+         data.content = data.content.replace('@' + id, '@' + user.fullname);
+         });
+         
+         return data;
+         }*/
         $('#comments-container').comments({
             profilePictureURL: '/images/slide-2.jpeg',
             currentUserId: '{{$user_id}}',
@@ -308,26 +333,34 @@ $(function () {
             enablePinging: true,
             maxRepliesVisible: 3,
             enableReplying: true,
-            //currentUserIsAdmin: true,
+            currentUserIsAdmin: function (success, error) {
+                /*$.get('{{url("comment/getUsers")}}', function (e) {
+                        var userArray = e;
+                        success(userArray)
+                    }
+                );*/
+                success(true)
+            },
             created_by_current_user: true,
+            readOnly: readOnly,
             /*
+             getUsers: function (success, error) {
+             setTimeout(function () {
+             success(usersArray);
+             }, 500);
+             }*/
             getUsers: function (success, error) {
-                setTimeout(function () {
-                    success(usersArray);
-                }, 500);
-            }*/
-            getUsers: function(success, error) {
-                $.get('{{url("comment/getUsers")}}',function(e){ 
+                $.get('{{url("comment/getUsers")}}', function (e) {
                     var userArray = e;
                     success(userArray)
-                    } 
+                }
                 );
             },
-            getComments: function(success, error) { 
+            getComments: function (success, error) {
                 $.ajax({
                     type: 'get',
                     url: '{{url("comment/list_comments", $craft->id)}}',
-                    success: function(e) {
+                    success: function (e) {
                         var commentsArray = e;
                         success(commentsArray)
                     },
@@ -335,45 +368,45 @@ $(function () {
                 });
             }
             /* getComments: function (success, error) {
-                setTimeout(function () {
-                    success(commentsArray);
-                }, 500);
-            }*/,
+             setTimeout(function () {
+             success(commentsArray);
+             }, 500);
+             }*/,
             /*
-            postComment: function (data, success, error) {
-                setTimeout(function () {
-                    success(saveComment(data));
-                }, 500);
-            }*/
-            postComment: function(commentJSON, success, error) {
+             postComment: function (data, success, error) {
+             setTimeout(function () {
+             success(saveComment(data));
+             }, 500);
+             }*/
+            postComment: function (commentJSON, success, error) {
                 $.ajax({
                     type: 'post',
                     url: '{{route("comment.store")}}',
-                     data: {comment: commentJSON, craft_id: 1},
-                    success: function(comment) {
-                        success(comment) 
-                    },
-                    error: error
-                });
-            },
-            /*
-            putComment: function (data, success, error) {
-                setTimeout(function () {
-                    success(saveComment(data));
-                }, 500);
-            }*/
-            putComment: function(commentJSON, success, error) {
-                $.ajax({
-                    type: 'put',
-                    url: '{{/comment/update/' + commentJSON.id,
-                    data: commentJSON,
-                    success: function(comment) {
+                    data: {comment: commentJSON, craft_id: 1},
+                    success: function (comment) {
                         success(comment)
                     },
                     error: error
                 });
             },
-            deleteComment: function(commentJSON, success, error) {
+            /*
+             putComment: function (data, success, error) {
+             setTimeout(function () {
+             success(saveComment(data));
+             }, 500);
+             }*/
+            putComment: function (commentJSON, success, error) {
+                $.ajax({
+                    type: 'put',
+                    url: '{{/comment/update/' + commentJSON.id,
+                    data: commentJSON,
+                    success: function (comment) {
+                        success(comment)
+                    },
+                    error: error
+                });
+            },
+            deleteComment: function (commentJSON, success, error) {
                 $.ajax({
                     type: 'delete',
                     url: '/comments/deleteComments/' + commentJSON.id,
@@ -382,27 +415,27 @@ $(function () {
                 });
             },
             /*deleteComment: function (data, success, error) {
-                setTimeout(function () {
-                    success();
-                }, 500);
-            }*/
+             setTimeout(function () {
+             success();
+             }, 500);
+             }*/
             /*upvoteComment: function (data, success, error) {
-                setTimeout(function () {
-                    success(data);
-                }, 500);
-            }*/
-            upvoteComment: function(commentJSON, success, error) {
+             setTimeout(function () {
+             success(data);
+             }, 500);
+             }*/
+            upvoteComment: function (commentJSON, success, error) {
                 var commentURL = '/comments/' + commentJSON.id;
                 var upvotesURL = commentURL + '/upvotes/';
 
-                if(commentJSON.userHasUpvoted) {
+                if (commentJSON.userHasUpvoted) {
                     $.ajax({
                         type: 'post',
                         url: upvotesURL,
                         data: {
                             comment: commentJSON.id
                         },
-                        success: function() {
+                        success: function () {
                             success(commentJSON)
                         },
                         error: error
@@ -411,7 +444,7 @@ $(function () {
                     $.ajax({
                         type: 'delete',
                         url: upvotesURL + upvoteId,
-                        success: function() {
+                        success: function () {
                             success(commentJSON)
                         },
                         error: error
@@ -419,39 +452,40 @@ $(function () {
                 }
             },
             /*
-            uploadAttachments: function (dataArray, success, error) {
-                setTimeout(function () {
-                    success(dataArray);
-                }, 500);
-            },*/
-            uploadAttachments: function(commentArray, success, error) {
+             uploadAttachments: function (dataArray, success, error) {
+             setTimeout(function () {
+             success(dataArray);
+             }, 500);
+             },*/
+            uploadAttachments: function (commentArray, success, error) {
                 var responses = 0;
                 var successfulUploads = [];
 
-                var serverResponded = function() {
+                var serverResponded = function () {
                     responses++;
 
                     // Check if all requests have finished
-                    if(responses == commentArray.length) {
+                    if (responses == commentArray.length) {
 
                         // Case: all failed
-                        if(successfulUploads.length == 0) {
+                        if (successfulUploads.length == 0) {
                             error();
 
-                        // Case: some succeeded
+                            // Case: some succeeded
                         } else {
                             success(successfulUploads)
                         }
                     }
                 }
 
-                $(commentArray).each(function(index, commentJSON) {
+                $(commentArray).each(function (index, commentJSON) {
 
                     // Create form data
                     var formData = new FormData();
-                    $(Object.keys(commentJSON)).each(function(index, key) {
+                    $(Object.keys(commentJSON)).each(function (index, key) {
                         var value = commentJSON[key];
-                        if(value) formData.append(key, value);
+                        if (value)
+                            formData.append(key, value);
                     });
 
                     $.ajax({
@@ -461,11 +495,11 @@ $(function () {
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function(commentJSON) {
+                        success: function (commentJSON) {
                             successfulUploads.push(commentJSON);
                             serverResponded();
                         },
-                        error: function(data) {
+                        error: function (data) {
                             serverResponded();
                         },
                     });

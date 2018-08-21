@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Tambah Craft</div> 
+                <div class="panel-heading">Edit Craft</div> 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('craft.update', $craft->id) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
@@ -38,10 +38,10 @@
                             </div>
                         </div>   
                         <div class="form-group">
-                            <label for="category_id" class="col-md-4 control-label">Category</label>
+                            <label for="category_id" class="col-md-4 control-label">Kategori</label>
                             
                             <div class="col-md-6">
-                                <select name="category_id" class="form-control">
+                                <select name="category_id" class="form-control example-getting-started">
                                     @foreach($categories as $c)
                                     <option value="{{$c->id}}" {{($c->id == $craft->category_id)?"selected='selected'":""}}>{{ucfirst($c->name)}}</option>
                                     @endforeach
@@ -122,7 +122,7 @@
                         <div class="form-group">
                             <label for="supplier_id" class="col-md-4 control-label">Supplier</label> 
                             <div class="col-md-6">
-                                <select name="supplier_id" class="form-control">
+                                <select name="supplier_id" class="form-control example-getting-started">
                                     @foreach($suppliers as $s)
                                     <option value="{{$s->id}}" {{($s->id == $craft->supplier_id)?"selected='selected'":""}}>{{ucfirst($s->name)}}</option>
                                     @endforeach

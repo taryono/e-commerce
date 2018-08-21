@@ -1,9 +1,16 @@
-<?php #dump($crafts);  ?>
-<div class="container marketing"> 
-    <!-- Three columns of text below the carousel -->
+<div class="container marketing" style="padding-top: 10px;"> 
     <div class="row">
-        <div class="col-lg-12" style="height: 150px;"></div> 
+        <div class="col-md-12"> 
+            <div class="jumbotron"> 
+                <p>
+                    Promo Setiap Hari
+                </p> 
+            </div>
+        </div>
     </div>
+</div>
+<div class="container marketing" style="padding-top: 10px;"> 
+    <!-- Three columns of text below the carousel --> 
     @if($crafts->count() > 0) 
        @foreach($crafts->chunk(round(3)) as $chunks)
        <div class="row">
@@ -11,10 +18,10 @@
 			<div class="col-lg-4"> 
 				<img class="rounded-circle" src="/uploads/<?=$craft->craft_image->path.'/'.$craft->craft_image->name ?>" alt="Generic placeholder image" width="140" height="140">
 				<h4>{{$craft->name}}</h4>
-				<table class=" table table-bordered">
-					<tr>
-						<td width="100">Kategori</td>
-						<td>{{$craft->category?$craft->category->name:NULL}} </td>
+				<table class="table table-striped">
+					<tr class="table-success">
+						<th width="100">Kategori</th>
+						<th>{{$craft->category?$craft->category->name:NULL}} </th>
 					</tr>
 					<tr>
 						<td width="100">Supplier</td>
@@ -26,7 +33,7 @@
 					</tr>
 					<tr>
 						<td width="100">Stok</td>
-						<td>{{$craft->craft_detail?$craft->craft_detail->stock:NULL}} </td>
+						<td>{{$craft->craft_detail?$craft->craft_detail->stock:NULL}} PCS</td>
 					</tr>
 				</table>
 				<p><a class="btn btn-secondary" href="{{route('product.detail',$craft->id)}}" role="button">Lihat Detail »</a></p>

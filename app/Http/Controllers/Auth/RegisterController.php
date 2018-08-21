@@ -7,8 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\Role;
-use App\Models\Customer;
-use App\Models\Employee;
 
 class RegisterController extends Controller {
     /*
@@ -48,7 +46,7 @@ use RegistersUsers;
      */
     protected function validator(array $data) {
         return Validator::make($data, [
-                    'name' => 'required|string|max:255',
+                    //'name' => 'required|string|max:255',
                     'email' => 'required|string|email|max:255|unique:users',
                     'password' => 'required|string|min:6|confirmed',
         ]);
@@ -62,28 +60,51 @@ use RegistersUsers;
      */
     protected function create(array $data) {
         $user = User::create([
-                    'name' => $data['name'],
+                    //'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => bcrypt($data['password']),
         ]);
+        $user_detail = \App\Models\UserDetail::where('user_id',$user->id)->first();
         if(array_key_exists('role', $data)){
-            $employee = Employee::create([
-                        'name' => $data['name'],
+            if($user_detail){
+                $user_detail->update([
+                        'first_name' => $data['first_name'], 
+                        'last_name' => $data['last_name'],
                         'email' => $data['email'],
                         'address' => $data['address'],
                         'cellphone' => $data['cellphone'],
                         'user_id' => $user->id,
-            ]);
-            
+                ]);
+            }else{
+                $user_detail =  \App\Models\UserDetail::create([
+                            'first_name' => $data['first_name'], 
+                            'last_name' => $data['last_name'],
+                            'email' => $data['email'],
+                            'address' => $data['address'],
+                            'cellphone' => $data['cellphone'],
+                            'user_id' => $user->id,
+                ]);
+            }
             $user->roles()->attach(Role::where('name', $data['role'])->first());
-        }else{
-            $customer = Customer::create([
-                        'name' => $data['name'],
-                        'email' => $data['email'],
+        }else{ 
+            if($user_detail){
+                $user_detail->update([ 
+                        'first_name' => $data['first_name'], 
+                        'last_name' => $data['last_name'],
                         'address' => $data['address'],
                         'cellphone' => $data['cellphone'],
                         'user_id' => $user->id,
-            ]);
+                ]);
+            }else{
+                $user_detail =  \App\Models\UserDetail::create([ 
+                            'first_name' => $data['first_name'], 
+                            'last_name' => $data['last_name'],
+                            'address' => $data['address'],
+                            'cellphone' => $data['cellphone'],
+                            'user_id' => $user->id,
+                ]);
+            }
+            
             $user->roles()->attach(Role::where('name', 'customer')->first());
         }
         return $user;

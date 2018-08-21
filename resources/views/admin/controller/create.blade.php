@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Add Controller</div> 
+                <div class="panel-heading">Tambah Controller</div> 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('controller.store') }}">
                         {{ csrf_field() }} 
@@ -36,7 +36,7 @@
                             <label for="is_published" class="col-md-7 control-label">Group Menu</label>
 
                             <div class="col-md-5"> 
-                                <select name="group_menu_id" class="form-control"> 
+                                <select name="group_menu_id" class="form-control example-getting-started"> 
                                     @foreach($groups as $group)
                                     <option value="{{$group->id}}">{{$group->name}}</option>  
                                     @endforeach

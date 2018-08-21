@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Add Controller</div> 
+                <div class="panel-heading">Edit Controller</div> 
                 <div class="panel-body">
                     {{ Form::model($controller, array('route' => array('controller.update', $controller->id), 'method' => 'PUT', 'class'=> 'form-horizontal')) }}
                         <input type="hidden" name="id" value="{{$controller->id}}">
@@ -33,7 +33,7 @@
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}"> 
                             <div class="col-md-7"><label for="title" class="col-md-12 control-label">Title</label></div> 
                             <div class="col-md-5"> 
-                                <input id="name" type="text" class="form-control" name="title" value="{{ $controller->title }}" required autofocus placeholder="role">
+                                <input id="name" type="text" class="form-control" name="title" value="{{ $controller->text }}" required autofocus placeholder="role">
                                 @if ($errors->has('type'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('title') }}</strong>
@@ -42,12 +42,12 @@
                             </div>
                         </div> 
                         <div class="form-group{{ $errors->has('group_menu_id') ? ' has-error' : '' }}">
-                            <label for="is_published" class="col-md-7 control-label">Group Menu</label>
+                            <label for="group_menu_id" class="col-md-7 control-label">Group Menu</label>
 
                             <div class="col-md-5"> 
-                                <select name="group_menu_id" class="form-control"> 
+                                <select name="group_menu_id" class="form-control example-getting-started"> 
                                     @foreach($groups as $group)
-                                    <option value="{{$group->id}}">{{$group->name}}</option>  
+                                    <option value="{{$group->id}}" {{($controller->group_menu_id==$group->id)?'selected="selected"':''}}>{{$group->name}}</option>  
                                     @endforeach
                                 </select>
                                 @if ($errors->has('group_menu_id'))

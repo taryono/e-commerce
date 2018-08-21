@@ -38,10 +38,10 @@
                             </div>
                         </div>   
                         <div class="form-group">
-                            <label for="category_id" class="col-md-4 control-label">Category</label>
+                            <label for="category_id" class="col-md-4 control-label">Kategori</label>
                             
                             <div class="col-md-6">
-                                <select name="category_id" class="form-control">
+                                <select name="category_id" class="form-control example-getting-started">
                                     @foreach($categories as $c)
                                     <option value="{{$c->id}}">{{ucfirst($c->name)}}</option>
                                     @endforeach
@@ -123,7 +123,7 @@
                             <label for="supplier_id" class="col-md-4 control-label">Supplier</label>
                             
                             <div class="col-md-6">
-                                <select name="supplier_id" class="form-control">
+                                <select name="supplier_id" class="form-control example-getting-started">
                                     @foreach($suppliers as $s)
                                     <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
                                     @endforeach

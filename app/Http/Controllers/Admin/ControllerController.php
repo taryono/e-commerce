@@ -20,7 +20,7 @@ class ControllerController extends AdminController
     }
     
     public function create(Request $request)
-    {	$groups = \App\Models\GroupMenu::all();
+    {	$groups = \App\Models\GroupMenu::all(); 
         return view('admin.controller.create', compact('groups'));
     }
     
@@ -31,9 +31,12 @@ class ControllerController extends AdminController
     }
     
     public function store(Request $request)
-    {	controller_model::create([
-            'name'=> "\\App\Http\\Controllers\\".$request->input('name'),
-            'title'=> $request->input('title'),
+    {	
+        $name = "\\App\Http\\Controllers\\".$request->input('name'); 
+        controller_model::create([
+            'name'=> $name,
+            'title'=> $this->setTitle($name), 
+            'text'=> $request->input('title'),
             'group_menu_id'=> $request->input('group_menu_id')
         ]);
         return redirect()->route('controller.index');
@@ -41,9 +44,12 @@ class ControllerController extends AdminController
     
     public function update(Request $request, $id)
     {	$con = controller_model::find($id);
+    
+        $name = "\\App\Http\\Controllers\\".$request->input('name'); 
         $con->update([
-            'name'=> "\\App\Http\\Controllers\\".$request->input('name'),
-            'title'=> $request->input('title'), 
+            'name'=> $name,
+            'title'=> $this->setTitle($name), 
+            'text'=> $request->input('title'), 
             'group_menu_id'=> $request->input('group_menu_id'), 
         ]);
         if($con){
@@ -83,5 +89,11 @@ class ControllerController extends AdminController
             } 
         }
         abort(404);
+    }
+    
+    protected function setTitle($name) {
+        $text = explode('\\', $name);
+        $converted = explode('_',snake_case($text[count($text)-1])); 
+        return $converted[0];
     }
 }
