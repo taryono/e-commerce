@@ -4,13 +4,10 @@ namespace App\Http\Controllers\Employee;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\Models\Customer;
-use App\Models\Role;
-class CustomerController extends EmployeeController
-{    
-    /**
+
+class SaleController extends EmployeeController
+{
+     /**
      * Create a new controller instance.
      *
      * @return void
@@ -27,10 +24,20 @@ class CustomerController extends EmployeeController
      */
     public function index(Request $request)
     {	 
-        $users = \App\User::with('user_detail')->whereHas('roles', function($q){
-            $q->where('name', 'customer');
-        })->paginate(20);  
-        return view('employee.user.list', compact('users'));
+        $craft_detail_ids = [];
+        $carts = \App\Models\Cart::where('status_id', 2)->get();
+        if($carts){
+            foreach($carts as $cart){
+                foreach($cart->cart_detail as $detail){
+                    $craft_detail_ids[] = $detail->id;
+                }
+                
+            }
+            $cart_details = \App\Models\CartDetail::whereIn('id', $craft_detail_ids)->paginate(20);
+             
+            return view('employee.sale.list', compact('cart_details'));
+        }
+        
     }
     
     public function create(Request $request)

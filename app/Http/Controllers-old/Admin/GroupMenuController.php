@@ -45,9 +45,8 @@ class GroupMenuController extends AdminController
         
         if($group_menu){
             $group_menu->update([
-                //'route'=> $request->input('route'),
+                'route'=> $request->input('route'),
                 'name'=> $request->input('name'), 
-                'is_published'=> $request->input('is_publish'),
             ]); 
         }
         return redirect()->route('group_menu.index');

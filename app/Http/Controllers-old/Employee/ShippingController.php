@@ -98,16 +98,7 @@ class ShippingController extends EmployeeController {
     
     public function listCart(Request $request) { 
         $carts = \App\Models\Cart::where(['status_id'=> 2,'courier_id'=> $request->input('courier_id') ])->paginate(20);
-        $shipping_details = NULL;
-        if($request->has('shipping_id')){
-            $shipping_id = $request->input('shipping_id');
-            $shipping = \App\Models\Cart::find($shipping_id);
-            $shipping_details = $shipping->shipping_detail; 
-            return view('employee.shipping.list_cart', compact('carts', 'shipping_details'));
-        }else{
-            return view('employee.shipping.list_cart', compact('carts', 'shipping_details'));
-        }
-        
+        return view('employee.shipping.list_cart', compact('carts'));
     }
     
     public function detail($id) { 

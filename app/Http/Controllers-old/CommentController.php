@@ -102,7 +102,7 @@ class CommentController extends Controller {
         $comment = Comment::find($id);
         if ($comment) {
             $comment->update([
-                'content' => $data['content'], 
+                'name' => $data['name'], 
             ]);
         }
         return redirect($this->redirectTo);

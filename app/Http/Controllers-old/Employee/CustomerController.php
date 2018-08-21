@@ -61,7 +61,6 @@ class CustomerController extends EmployeeController
                         'date_of_birth' => $data['date_of_birth'],
                         'sex' => $data['sex'], 
                         'user_id' => $user->id,
-                        'is_verified' => 0,
             ]); 
             $user->roles()->attach(Role::where('name', 'user')->first());
         } 
@@ -87,28 +86,26 @@ class CustomerController extends EmployeeController
      * @return User
      */
     public function update(Request $request, $id) {
-        $data = $request->input(); 
-        $user = User::find($id);
-        $user_detail = $user->user_detail;
-        $user_detail->update([
-                'first_name'=> $data['first_name'],
-                'last_name'=> $data['last_name'],
-                'date_of_birth'=> $data['date_of_birth'],
-                'sex'=> $data['sex'],
-                'address'=> $data['address'],
-                'cellphone'=> $data['cellphone'],
-                'phone_number'=> $data['phone_number'],
-            ]); 
-        $is_verified = TRUE;
-        foreach($data as $key => $val){
-            if(!array_key_exists($key, $data) && !$data[$key]){
-                $is_verified = FALSE;
+        $data = $request->input();
+         
+        if(array_key_exists('roles', $data)){
+            $user = User::find($id);
+            if($user){
+                 $user->update([
+                            'name' => $data['name'],
+                            'email' => $data['email'],
+                            'address' => $data['address'],
+                            'cellphone' => $data['cellphone'],
+                            'phone_number' => $data['phone_number'],
+                            'date_of_birth' => $data['date_of_birth'],
+                            'sex' => $data['sex'],
+                            'position' => $data['position'], 
+                ]);
             }
-        }
-        if($is_verified){
-            $user_detail->is_verified = TRUE;
-            $user_detail->save();
-        }
+           
+            $user->roles()->detach(); 
+            $user->roles()->attach(Role::where('name', 'customer')->first());
+        } 
         return  redirect()->route('customer.index');
     }
 }

@@ -31,10 +31,5 @@ class ProductController extends Controller {
         $provinces = \App\Models\Province::all();
         return view('detail', compact('craft','couriers', 'provinces'));
     }
-    
-     public function byCategory($id) {
-        $crafts = \App\Models\Craft::where('category_id', $id)->paginate(20); 
-        return view('welcome', compact('crafts'));
-    }
 
 }

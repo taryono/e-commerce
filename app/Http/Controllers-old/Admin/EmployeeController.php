@@ -32,10 +32,8 @@ class EmployeeController extends AdminController
      */
     public function index(Request $request)
     {	$request->user()->authorizeRoles(['administrator','employee']);
-         $users = \App\User::with('user_detail')->whereHas('roles', function($q){
-            $q->whereNotIn('name', ['customer','administrator']);
-        })->paginate(20);
-        return view('admin.employee.list', compact('users'));
+        $employees = Employee::paginate(5);
+        return view('admin.employee.list', compact('employees'));
     }
     
     public function create(Request $request)
@@ -57,7 +55,7 @@ class EmployeeController extends AdminController
                     'password' => bcrypt($data['password']),
         ]);
         if(array_key_exists('roles', $data)){
-            $user = Employee::create([
+            $employee = Employee::create([
                         'name' => $data['name'],
                         'email' => $data['email'],
                         'address' => $data['address'],
@@ -75,13 +73,13 @@ class EmployeeController extends AdminController
     }
     
     public function edit($id)
-    {	$user = User::find($id);
-        $roles = Role::whereNotIn('name',['administrator','customer'])->get();  
-        return view('admin.employee.edit', compact('roles', 'user'));
+    {	$employee = Employee::find($id);
+        $roles = Role::where('name','<>', 'administrator')->get();
+        return view('admin.employee.edit', compact('roles', 'employee'));
     }
     
     public function show($id)
-    {	$user = Employee::find($id);
+    {	$employee = Employee::find($id);
         $roles = Role::where('name','<>', 'administrator')->get();
         return view('admin.employee.edit', compact('roles', 'employee'));
     }
@@ -93,38 +91,26 @@ class EmployeeController extends AdminController
      * @return User
      */
     public function update(Request $request, $id) {
-        $data = $request->input(); 
+        $data = $request->input();
+         
         if(array_key_exists('roles', $data)){
-            $user = User::find($id);
-            if($user){
-                 $user->update([
-                            'email' => $data['email'], 
+            $employee = Employee::find($id);
+            if($employee){
+                 $employee->update([
+                            'name' => $data['name'],
+                            'email' => $data['email'],
+                            'address' => $data['address'],
+                            'cellphone' => $data['cellphone'],
+                            'phone_number' => $data['phone_number'],
+                            'date_of_birth' => $data['date_of_birth'],
+                            'sex' => $data['sex'],
+                            'position' => $data['position'], 
                 ]);
-                if($user->user_detail){
-                    $user->user_detail->update([  
-                               'address' => $data['address'],
-                               'cellphone' => $data['cellphone'],
-                               'phone_number' => $data['phone_number'],
-                               'date_of_birth' => $data['date_of_birth'],
-                               'sex' => $data['sex'], 
-                   ]);
-                }else{
-                    \App\Models\UserDetail::create([
-                        'first_name' => $data['first_name'],
-                        'last_name' => $data['last_name'],
-                        'address' => $data['address'],
-                        'cellphone' => $data['cellphone'],
-                        'phone_number' => $data['phone_number'],
-                        'date_of_birth' => $data['date_of_birth'],
-                        'sex' => $data['sex'], 
-                        'user_id' => $user->id, 
-                    ]);
-                }
             }
            
-            $user->roles()->detach();
+            $employee->user->roles()->detach();
             foreach($data['roles'] as $role)
-            $user->roles()->attach(Role::where('name', $role)->first());
+            $employee->user->roles()->attach(Role::where('name', $role)->first());
         } 
         return  redirect($this->redirectTo);
     }

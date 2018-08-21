@@ -14,7 +14,7 @@ class Cart extends Model {
         return $this->belongsTo(\App\User::class);
     } 
     public function cart_detail(){
-        return $this->hasOne(CartDetail::class);
+        return $this->hasMany(CartDetail::class);
     }
     
     public function courier(){
