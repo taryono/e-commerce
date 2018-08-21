@@ -69,3 +69,4 @@ foreach ($controllers as $controller) {
     $router->resource($title, $name);
 }
 
+

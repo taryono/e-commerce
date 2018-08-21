@@ -82,8 +82,7 @@ function groupMenu($group_id) {
         $show = [];
         foreach (json_decode(\Auth::user()->menus) as $menu) {
             $controller = \App\Models\Controller::find($menu->controller_id);
-            if ($controller) {
-
+            if ($controller) { 
                 if (!in_array($menu->type . $menu->id, $show)) {
                     $show[] = $menu->type . $menu->id;
                     if ($menu->group_menu_id == $group_id && $menu->type == "index") { 
@@ -92,7 +91,7 @@ function groupMenu($group_id) {
                 }
             }
         }
-    }
+    } 
     return $menus;
 }
 

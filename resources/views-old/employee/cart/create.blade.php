@@ -39,7 +39,7 @@
                             </div>
                         </div>   
                         <div class="form-group">
-                            <label for="category_id" class="col-md-4 control-label">Category</label>
+                            <label for="category_id" class="col-md-4 control-label">Kategori</label>
                             
                             <div class="col-md-6">
                                 <select name="category_id" class="form-control">
