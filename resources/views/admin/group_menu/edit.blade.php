@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Edit Grup Menu</div>
 
                 <div class="panel-body">
                     {{ Form::model($groups, array('route' => array('group_menu.update', $groups->id), 'method' => 'PUT', 'class'=> 'form-horizontal')) }}
@@ -28,8 +28,8 @@
                             <label for="is_published" class="col-md-4 control-label">Is Publish</label> 
                             <div class="col-md-6">
                                 <select name="is_published" class="form-control"> 
-                                    <option value="0" {{($groups->is_publised == 0)?'selected="selected"':''}}>Unpublish</option>                       
-                                    <option value="1" {{($groups->is_publised == 1)?'selected="selected"':''}}selected="selected">Publish</option>
+                                    <option value="0" {{($groups->is_published == 0)?'selected="selected"':''}}>Tidak Aktif</option>                       
+                                    <option value="1" {{($groups->is_published == 1)?'selected="selected"':''}}">Aktif</option>
                                 </select>
                             </div>
                         </div> 

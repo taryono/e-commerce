@@ -27,8 +27,8 @@
                             <label for="is_published" class="col-md-4 control-label">Is Publish</label> 
                             <div class="col-md-6">
                                 <select name="is_published" class="form-control"> 
-                                    <option value="0" selected="selected">Unpublish</option>                       
-                                    <option value="1" selected="selected">Publish</option>
+                                    <option value="0">Tidak Aktif</option>                       
+                                    <option value="1">Aktif</option>
                                 </select>
                             </div>
                         </div> 

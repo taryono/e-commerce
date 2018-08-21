@@ -13,6 +13,7 @@
                             <tr class="ordering"> 
                                 <th width="10px">No</th> 
                                 <th width="10px">Nama</th>  
+                                <th width="10px">Status</th>
                                 <th width="10px">Aksi</th>
                             </tr> 
                         </thead>
@@ -21,6 +22,7 @@
                             <tr class="ordering">
                                 <th width="10px">{{++$key}}</th>
                                 <th width="10px">{{$c->name}}</th>    
+                                <th width="10px">{{($c->is_published == 1)?'Aktif':'Tidak Aktif'}}</th>
                                 <th width="10px">{!!getActions('group_menu','edit', $c->id)?getActions("group_menu",'edit', $c->id):NULL!!}&nbsp;{!!getActions('group_menu','destroy', $c->id)?getActions("group_menu",'destroy', $c->id):NULL!!}</th> 
                             </tr>
                             @endforeach

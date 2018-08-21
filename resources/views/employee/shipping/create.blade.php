@@ -8,16 +8,16 @@
                 <div class="panel-heading">Tambah Pengiriman</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('shipping.store') }}"  enctype="multipart/form-data">
+                    <form class="form-horizontal" method="POST" action="{{ route('shipping.store') }}">
                         {{ csrf_field() }} 
                         
                         <div class="form-group">
-                            <label for="courier_id" class="col-md-3 control-label">Supplier</label>
+                            <label for="courier_id" class="col-md-3 control-label">Kurir</label>
                             <div class="col-md-7">
-                                <select name="courier_id" class="form-control" id="courier_id">
+                                <select name="courier_id" class="form-control example-getting-started" id="courier_id">
                                     <option value="">-- Pilih Kurir --</option>
                                     @foreach($couriers as $s)
-                                    <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
+                                    <option value="{{$s->id}}"> {{$s->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

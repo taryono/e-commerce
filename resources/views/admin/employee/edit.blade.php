@@ -5,31 +5,43 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Edit Employee :<b>{{$employee->name}}</b></div>
+                <div class="panel-heading">Edit Data Pegawai :<b>{{$user->name}}</b></div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('employee.update',$employee->id) }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('employee.update',$user->id) }}">
                         {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PUT">
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Nama</label>
+                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                            <label for="first_name" class="col-md-4 control-label">Nama Depan</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{$employee->name}}" required autofocus>
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{$user->user_detail?$user->user_detail->first_name:NULL}}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('first_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <label for="last_name" class="col-md-4 control-label">Nama Belakang</label>
 
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{$user->user_detail?$user->user_detail->last_name:NULL}}" required autofocus>
+
+                                @if ($errors->has('last_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Alamat Email</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{$employee->email}}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{$user->email}}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -42,7 +54,7 @@
                             <label for="address" class="col-md-4 control-label">Alamat</label>
 
                             <div class="col-md-6">
-                                <textarea name="address"  class="form-control" required>{{$employee->address}} </textarea>
+                                <textarea name="address"  class="form-control" required>{{$user->user_detail?$user->user_detail->address:NULL}} </textarea>
 
                                 @if ($errors->has('address'))
                                     <span class="help-block">
@@ -55,7 +67,7 @@
                             <label for="cellphone" class="col-md-4 control-label">Handphone</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="number" class="form-control" name="cellphone" value="{{$employee->cellphone}}" required autofocus>
+                                <input id="name" type="number" class="form-control" name="cellphone" value="{{$user->user_detail?$user->user_detail->cellphone:NULL}}" required autofocus>
 
                                 @if ($errors->has('cellphone'))
                                     <span class="help-block">
@@ -68,7 +80,7 @@
                             <label for="phone_number" class="col-md-4 control-label">No Telp</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="number" class="form-control" name="phone_number" value="{{$employee->phone_number}}" required autofocus>
+                                <input id="name" type="number" class="form-control" name="phone_number" value="{{$user->user_detail?$user->user_detail->phone_number:NULL}}" required autofocus>
 
                                 @if ($errors->has('phone_number'))
                                     <span class="help-block">
@@ -81,7 +93,7 @@
                             <label for="date_of_birth" class="col-md-4 control-label">Tanggal Lahir</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="date" class="form-control" name="date_of_birth" value="{{$employee->date_of_birth}}" required autofocus>
+                                <input id="name" type="date" class="form-control" name="date_of_birth" value="{{date('Y-m-d', strtotime($user->user_detail?$user->user_detail->date_of_birth:NULL))}}" required autofocus>
 
                                 @if ($errors->has('date_of_birth'))
                                     <span class="help-block">
@@ -94,12 +106,11 @@
                             <label for="sex" class="col-md-4 control-label">Jenis Kelamin</label> 
                             <div class="col-md-6"> 
                                 <label class="radio-inline">
-                                    <input id="name" type="radio" class="radio" name="sex" value="F" required autofocus {{(($employee->sex == "F")?"checked='checked'":"")}}>Female
+                                    <input id="name" type="radio" class="radio" name="sex" value="M" required autofocus {{(($user->user_detail && $user->user_detail->sex == "M")?"checked='checked'":"")}}>Laki - laki
                                 </label>
                                 <label class="radio-inline">
-                                    <input id="name" type="radio" class="radio" name="sex" value="M" required autofocus {{(($employee->sex == "M")?"checked='checked'":"")}}>Male
+                                    <input id="name" type="radio" class="radio" name="sex" value="F" required autofocus {{(($user->user_detail && $user->user_detail->sex == "F")?"checked='checked'":"")}}>Perempuan
                                 </label>
-                                 
                                 @if ($errors->has('sex'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('sex') }}</strong>
@@ -110,26 +121,25 @@
                         <div class="form-group">
                             <label for="position" class="col-md-4 control-label">Jabatan</label> 
                             <div class="col-md-6">
-                                <select name="position" class="form-control"> 
+                                <select name="position" class="form-control example-getting-started"> 
                                     <option value="manager">Manager</option>
                                     <option value="staff">Staff</option>
                                     <option value="hrd">HRD</option>
                                     <option value="finance">Finance</option>
-                                    <option value="supervisor">Supervisor</option>
-                                    
+                                    <option value="supervisor">Supervisor</option> 
                                 </select>
                             </div>
                         </div>
                     <?php
-                    $rs = [];
-                        foreach($employee->user->roles()->get() as $r){
+                        $rs = [];
+                        foreach($user->roles()->get() as $r){
                            $rs[] = $r->name; 
-                        }
+                        } 
                     ?>
                         <div class="form-group">
                             <label for="roles" class="col-md-4 control-label">Role</label> 
                             <div class="col-md-6">
-                                <select name="roles[]" class="form-control" id="example-getting-started" multiple="multiple">
+                                <select name="roles[]" class="form-control example-getting-started" multiple="multiple">
                                     @foreach($roles as $role)
                                     <option value="{{$role->name}}" {{(in_array($role->name,$rs))?"selected='selected'":NULL}}>{{$role->name}}</option>
                                     @endforeach

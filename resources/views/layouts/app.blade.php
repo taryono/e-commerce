@@ -77,6 +77,7 @@
                     <form class="navbar-form navbar-left" method="POST" action="{{route('product.search')}}">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
+                            {{csrf_field()}}
                         </div>
                         <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
@@ -89,7 +90,7 @@
                         @include('layouts.right-menu')
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ ucfirst(Auth::user()->name) }} <span class="caret"></span>
+                                {{ ucfirst(Auth::user()->user_detail->first_name) }} {{ ucfirst(Auth::user()->user_detail->last_name) }}<span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
@@ -134,7 +135,7 @@
         @yield('script')
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#example-getting-started').multiselect({
+                $('.example-getting-started').multiselect({
                     enableFiltering: true,
                 });
             });
@@ -161,8 +162,37 @@
                 })
             });
         </script> 
+        <script type="text/javascript">
+    $(document).ready(function () {
+        $('.plus-collapse').click(function () {
+            var id = $(this).data('rowid');
+            var url = $(this).data('url-source');
+
+            if ($(this).hasClass('fa-plus-square')) {
+                $('#row_collapse_' + id).parent().removeClass('hide');
+                $('#row_collapse_' + id).removeClass('hidden');
+                $(this).removeClass('fa-plus-square');
+                $(this).addClass('fa-minus-square');
+
+                $.ajax({
+                    url: url,
+                    data: {id:id},
+                    success: function (e) {
+                          $('#row_collapse_' + id).html(e); 
+                    }
+                });
+            } else {
+                $('#row_collapse_' + id).addClass('hidden');
+                $('#row_collapse_' + id).parent().addClass('hide');
+                $(this).addClass('fa-plus-square');
+                $(this).removeClass('fa-minus-square');
+            }
+        });
+    });
+</script>
         <script src="{{ asset('js/editor.js') }}"></script>
         <script src="{{ asset('js/apps.js') }}"></script>
         <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg>
     </body>
-</html>
+</html> 
+                

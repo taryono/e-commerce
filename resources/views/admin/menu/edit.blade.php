@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Edit Menu</div>
 
                 <div class="panel-body"> 
                         {{ Form::model($menu, array('route' => array('menu.update', $menu->id), 'method' => 'PUT', 'class'=> 'form-horizontal')) }}
@@ -40,7 +40,7 @@
                             <label for="email" class="col-md-4 control-label">Path</label>
 
                             <div class="col-md-6"> 
-                                <select name="path" class="form-control" required>
+                                <select name="path" class="form-control example-getting-started" required>
                                     @foreach($controllers as $c)
                                     <option value="{{$c->id}}" <?php echo ($c->id == $menu->controller->id)?"selected='selected'":""?>>{{$c->name}}</option>
                                     @endforeach
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
-                            <label for="position" class="col-md-4 control-label">Jabatan</label>
+                            <label for="position" class="col-md-4 control-label">Posisi Menu</label>
 
                             <div class="col-md-6"> 
                                 <select name="position" class="form-control"> 
@@ -131,7 +131,7 @@
                             <label for="group_menu_id" class="col-md-4 control-label">Group Menu</label>
 
                             <div class="col-md-6"> 
-                                <select name="group_menu_id" class="form-control"> 
+                                <select name="group_menu_id" class="form-control example-getting-started"> 
                                     @if($groups)
                                         @foreach($groups as $group)
                                         <option value="{{$group->id}}"<?php echo ($group->id == $menu->group_menu->id)?"selected='selected'":""?>>{{$group->name}}</option>  

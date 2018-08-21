@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Create User</div>
+                <div class="panel-heading">Tambah User</div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('customer.store') }}">
@@ -117,12 +117,11 @@
 
                             <div class="col-md-6"> 
                                 <label class="radio-inline">
-                                    <input id="sexF" type="radio" class="radio" name="sex" value="F" required autofocus>Female
+                                    <input id="nameM" type="radio" class="radio" name="sex" value="M" required autofocus checked>Laki - laki
                                 </label>
                                 <label class="radio-inline">
-                                    <input id="nameM" type="radio" class="radio" name="sex" value="M" required autofocus>Male
+                                    <input id="sexF" type="radio" class="radio" name="sex" value="F" required autofocus>Perempuan
                                 </label>
-                                 
                                 @if ($errors->has('sex'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('sex') }}</strong>

@@ -13,7 +13,7 @@
                             <tr class="ordering"> 
                                 <th width="10px">No</th> 
                                 <th width="10px">Nama</th> 
-                                <th width="10px">Category</th>  
+                                <th width="10px">Kategori</th>  
                                 <th width="10px">Supplier</th>
                                 <th width="10px">Aksi</th>  
                             </tr> 

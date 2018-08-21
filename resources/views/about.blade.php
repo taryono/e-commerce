@@ -11,7 +11,7 @@
                     Selamat datang diwebsite kami
                 </p>
                 <p>
-                    <a class="btn btn-primary btn-large" href="#">Learn more</a>
+                    <a class="btn btn-primary btn-large" href="#">Selengkapnya</a>
                 </p>
             </div>
         </div>

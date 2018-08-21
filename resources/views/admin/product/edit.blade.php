@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Edit Produk</div>
 
                 <div class="panel-body">
                     {{ Form::model($user, array('route' => array('user.update', $user->id), 'method' => 'PUT', 'class'=> 'form-horizontal')) }}
@@ -75,7 +75,7 @@
                         </div>
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Simpan
                                 </button>
                             </div>
                         </div>

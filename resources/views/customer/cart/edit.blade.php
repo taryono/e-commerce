@@ -32,43 +32,17 @@
 
             </div> 
             <div class="col-md-6">
-                @if(Auth::check()) 
-                <table class="table table-responsive">
-                    <thead>
-                        <tr class="ordering"> 
-                            <td>No</td> 
-                            <td>Nama</td>    
-                            <td>Harga</td> 
-                            <td>Aksi</td>
-                        </tr> 
-                    </tdead>
-                    <tbody> 
-                        <?php $total_price = 0;?>
-                        @if($carts->count() > 0)
-                        @foreach($carts as $key => $c)
-                        <tr>
-                            <td>{{++$key}}</td>
-                            <td><?php echo $c->user ? '<a href="' . route('cart.edit', $c->id) . '">' . $c->cart_detail->craft->name . '</a>' : NULL ?></td>   
-                            <td>{{$c->cart_detail->amount}}x{{rupiahFormat($c->cart_detail->price)}}</td>   
-                            <td>{!!getActions('cart','destroy', $c->id)?getActions('cart','destroy', $c->id):NULL!!}</td>
-                        </tr>
-                        <?php $total_price += $c->total;?>
-                        @endforeach
-                        @else
-                            <?php $total_price += $cart->total;?>
-                        @endif
-                    </tbody>
-                </table> 
-                @endif
+               
                 <h4>@if(!Auth::check())Untuk melanjutkan pembelian silahkan  <a href="{{route('login',['params'=> ['redirect'=> 'product.detail','param'=>$craft->id]])}}">login</a> dan isi form berikut: @endif </h4>
                 <table class="table table-responsive">
                     <tr>
                         <td style="width: 150px">Jasa Pengiriman </td>
                         <td> 
-                            <div class="form-group">  
-                                <select id="courier_id" name="courier_id" class="form-control">
-                                    @foreach($couriers as $s)
-                                    <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
+                            <div class="form-group">   
+                                <select id="courier_id" name="courier_id" class="form-control example-getting-started">
+                                    <option value="">--Pilih Jasa Pengiriman--</option>
+                                    @foreach($couriers as $s) 
+                                    <option value="{{$s->id}}" {{($s->id == $cart->courier_id)?'selected="selected"':''}}>{{ucfirst($s->name)}}</option>
                                     @endforeach
                                 </select> 
                             </div>
@@ -78,7 +52,7 @@
                         <td>Jumlah Pembelian</td>
                         <td> <div class="form-group form-inline">   
                                 <button class="form-control" style="width: 20px; display: initial" id="min">-</button>
-                                <input type="number" name="amount_changed" value="{{$cart->cart_detail?$cart->cart_detail->amount:1}}" class="form-control amount_changed" style="width: 80px;  display: initial">
+                                <input type="number" name="amount_changed" value="{{$cart_detail?$cart_detail->amount:1}}" class="form-control amount_changed" style="width: 80px;  display: initial">
                                 <button class="form-control" style="width: 20px;  display: initial" id="plus">+</button> 
                             </div>
                         </td>
@@ -87,7 +61,7 @@
                         <td>Stok</td>
                         <?php
                         $total_Stock = $craft->craft_detail?$craft->craft_detail->stock:NULL;
-                        $total_select = $cart->cart_detail?$cart->cart_detail->amount:0;
+                        $total_select = $cart_detail?$cart_detail->amount:0;
                         $total_selected = $total_Stock-$total_select;
                         ?>
                         <td><div class="stock_before">{{$total_selected}}</div></td>
@@ -112,12 +86,13 @@
                     </tr>
                     <tr>
                         <td>Subtotal</td>
-                        <td nowrap="nowrap"><div id="subtotal_changed" style="width: 20px;">{{$craft->craft_detail?rupiahFormat($cart->cart_detail->price*$cart->cart_detail->amount):1}}</div></td>
+                        <td nowrap="nowrap"><div id="subtotal_changed" style="width: 20px;">{{$craft->craft_detail?rupiahFormat($cart_detail->price*$cart_detail->amount):1}}</div></td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>                       
                     </tr>
                 </table>
+                
                 @if(Auth::check())
                 <table class="table table-responsive"> 
                     <caption><h4>Alamat Penerima</h4></caption>
@@ -137,7 +112,7 @@
                         <td style="width: 150px">To </td>
                         <td> 
                             <div class="form-group">  
-                                <select name="to_province_id" class="form-control" id="to_province_id_changed">
+                                <select name="to_province_id" class="form-control example-getting-started" id="to_province_id_changed">
                                     @foreach($provinces as $p)
                                     <option data-km='{{$p->km}}' value="{{$p->id}}" {{($p->id==$cart->to_province_id)?'selected="selected"':''}}>{{ucfirst($p->name)}}</option>
                                     @endforeach
@@ -163,32 +138,22 @@
                     </tr>
                 </table>
                 <hr style="height: 2px; width: 100%">
-                @endif
-                @if(Auth::check()) 
-                <table class="table table-striped table-check">
-                    <tbody>
-                        <tr class="ordering">
-                            <th>Total :</th>
-                            <th style="text-align: center"><div class="last_total">{{rupiahFormat($total+$fee)}}</div></th>
-                        </tr> 
-                    </tbody>
-                </table> 
-                @endif
+                @endif 
                 <hr style="height: 2px; width: 100%">
                 <div class="col-md-6 form-inline"> 
-                    <form class="form-horizontal submit-cart" method="POST" action="{{ route('cart.update',$cart->id) }}">
+                    <form class="form-horizontal submit-cart" method="POST" action="{{ route('cart.update_cart_detail',$cart_detail->id) }}">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="PUT">
                         @if(Auth::check() && Auth::user()->hasRole(['customer']))
-                        <input id='status' type="hidden" name="status_id" value="1">  
+                        <input id='status' type="hidden" name="status_id" value="1"> 
+                        <input class='courier_id' type="hidden" name="courier_id" value="{{$cart->courier_id}}">
                         <input id='user_id' type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                        <input id='last_amount' type="hidden" name="amount" value="{{$cart->cart_detail?(int)$cart->cart_detail->amount:0}}">
+                        <input id='last_amount' type="hidden" name="amount" value="{{$cart_detail?(int)$cart_detail->amount:0}}">
                         <input id='to_province_id' type="hidden" name="to_province_id_post" value="{{$cart->to_province_id}}">
-                        <input id='fee' type="hidden" name="fee" value="{{$cart->fee}}">
+                        <input id='fee' type="hidden" name="fee" value="{{$fee}}">
                         <input id='craft_id' type="hidden" name="craft_id" value="{{$craft->id}}">
                         <input id='price' type="hidden" name="price" value="{{$craft->craft_detail?(int)$craft->craft_detail->price:0}}">
-                        <input id='subtotal' type="hidden" name="subtotal" value="{{$cart?(int)$cart->total:0}}">
-                        <input id='total_price' type="hidden" name="total" value="{{$cart?(int)$cart->total+(int)$cart->fee:0}}">
+                        <input id='subtotal' type="hidden" name="subtotal" value="{{$cart_detail->subtotal}}"> 
                         <input id='last_stock' type="hidden" name="last_stock" value="{{$total_selected}}">
                         <div class="form-group form-inline">   
                             @if($cart->status_id != 2)
@@ -236,11 +201,11 @@
     var fees = $("input.fees").val(); 
     var price = $("input#price").val();
     var stock_before = $("div.stock_before").text();
-    var total_price = '{{$total_price}}';
+    var total_price = '{{$cart_detail->subtotal}}';
     var stock = '{{$craft->craft_detail?(int)$craft->craft_detail->stock:0}}'; 
-    var last_total = 0;
+    var last_total = 0; 
     $(function () {
-        $a = $("input.amount_changed").val();
+        $a = $("input.amount_changed").val(); 
         $("input.amount_changed").bind('keyup mouseup', function () {
             $last_val = $(this).val();
             console.log($last_val);
@@ -345,6 +310,8 @@
                 $("form.submit-cart").submit();
             }
             
+        }).on('change','select#courier_id', function(e){
+            $('input.courier_id').val($(this).val());
         });
     });
 

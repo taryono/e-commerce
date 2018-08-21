@@ -38,10 +38,10 @@
                             </div>
                         </div>   
                         <div class="form-group">
-                            <label for="category_id" class="col-md-4 control-label">Category</label>
+                            <label for="category_id" class="col-md-4 control-label">Kategori</label>
                             
                             <div class="col-md-6">
-                                <select name="category_id" class="form-control">
+                                <select name="category_id" class="form-control example-getting-started">
                                     @foreach($categories as $c)
                                     <option value="{{$c->id}}">{{ucfirst($c->name)}}</option>
                                     @endforeach
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('weight') ? ' has-error' : '' }}">
-                            <label for="weight" class="col-md-4 control-label">Weight</label> 
+                            <label for="weight" class="col-md-4 control-label">Berat</label> 
                             <div class="col-md-6">
                                 <input id="weight" type="number" min="1" class="form-control" name="weight" value="{{ old('weight') }}" required autofocus>
 
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('height') ? ' has-error' : '' }}">
-                            <label for="height" class="col-md-4 control-label">Height</label> 
+                            <label for="height" class="col-md-4 control-label">Tinggi</label> 
                             <div class="col-md-6">
                                 <input id="height" type="number" min="1" class="form-control" name="height" value="{{ old('height') }}" required autofocus>
 
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('long') ? ' has-error' : '' }}">
-                            <label for="long" class="col-md-4 control-label">Long</label> 
+                            <label for="long" class="col-md-4 control-label">Panjang</label> 
                             <div class="col-md-6">
                                 <input id="long" type="number" min="1" class="form-control" name="long" value="{{ old('long') }}" required autofocus>
 
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('color') ? ' has-error' : '' }}">
-                            <label for="color" class="col-md-4 control-label">Color</label> 
+                            <label for="color" class="col-md-4 control-label">Warna</label> 
                             <div class="col-md-6">
                                 <input id="color" type="text" min="1" class="form-control" name="color" value="{{ old('color') }}" required autofocus>
 
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                            <label for="description" class="col-md-4 control-label">Description</label> 
+                            <label for="description" class="col-md-4 control-label">Deskripasi Produk</label> 
                             <div class="col-md-6">
                                 <textarea id="description" class="form-control" name="description" required autofocus>{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
@@ -123,7 +123,7 @@
                             <label for="supplier_id" class="col-md-4 control-label">Supplier</label>
                             
                             <div class="col-md-6">
-                                <select name="supplier_id" class="form-control">
+                                <select name="supplier_id" class="form-control example-getting-started">
                                     @foreach($suppliers as $s)
                                     <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
                                     @endforeach
@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                            <label for="image" class="col-md-4 control-label">Image</label> 
+                            <label for="image" class="col-md-4 control-label">Gambar Produk</label> 
                             <div class="col-md-6">
                                 <input id="image" type="file" class="form-control post-input" name="image" value="{{ old('image') }}" autofocus>
                                 @if ($errors->has('image'))

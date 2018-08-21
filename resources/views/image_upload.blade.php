@@ -11,7 +11,7 @@
                     <form class="form-horizontal" method="POST" action="{{ route('upload.save') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('directory') ? ' has-error' : '' }}">
-                            <label for="route" class="col-md-4 control-label">Category</label>
+                            <label for="route" class="col-md-4 control-label">Kategori</label>
                             <div class="col-md-6">
                                 <select name="directory" class="form-control">
                                     @foreach($categories as $c)

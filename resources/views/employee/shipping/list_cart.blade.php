@@ -1,6 +1,16 @@
 @if($carts->count()>0)
+<?php
+$cart_ids = [];
+if($shipping_details && $shipping_details->count() > 0){
+    foreach($shipping_details as $detail){
+        $cart_ids[$detail->cart_id] = $detail->cart_id;
+    }    
+}
+
+?>
+
 <div class="form-group"> 
-    <label for="cart" class="col-md-3 control-label"><h4>List Belanja</h4></label>
+    <label for="cart" class="col-md-3 control-label"><h4 style="font-weight: bold">List Belanja</h4></label>
     <div class="col-md-7">
         <table class="table table-striped table-check">
             <thead>
@@ -14,10 +24,10 @@
             <tbody> 
                 @foreach($carts as $key => $c)
                 <tr class="ordering">
-                    <th width="10px">{{++$key}}</th>
-                    <th width="10px">{{$c->user?$c->user->name:NULL}}</th>  
-                    <th width="10px">{{$c->user?$c->to_province->name:NULL}}</th>
-                    <th width="10px"><input type="checkbox" name="cart_ids[]" value="{{$c->id}}"></th> 
+                    <td width="10px">{{++$key}}</td>
+                    <td width="10px">{{$c->user?$c->user->name:NULL}}</td>  
+                    <td width="10px">{{$c->user?$c->to_province->name:NULL}}</td>
+                    <td width="10px"><input class="checked_ids" type="checkbox" name="cart_ids[]" value="{{$c->id}}" {{(array_key_exists($c->id,$cart_ids))?'checked="checked"':''}}></td> 
                 </tr>
                 @endforeach
             </tbody>
@@ -40,3 +50,26 @@
     <div class="col-md-7"><h4>List Belanja Kosong...</h4></div>
 </div>
 @endif 
+@section('script')
+<script type="text/javascript">
+$(function(){
+    /*
+    var checked = [];
+    $.each('input.checked_ids', function(key, val){
+        console.log();
+    });
+    $("body").on('change','input.checked_ids', function(e){
+        var val = $(this).val();
+        if(true){
+            checked.push(val); 
+        }else{
+            var index = checked.indexOf(val);
+            if (index > -1) {
+               checked.splice(index, 1);
+            }
+        }
+        console.log(val);
+    });*/
+});
+</script>
+@endsection

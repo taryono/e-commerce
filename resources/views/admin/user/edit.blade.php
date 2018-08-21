@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Edit User</div>
 
                 <div class="panel-body">
                     {{ Form::model($user, array('route' => array('user.update', $user->id), 'method' => 'PUT', 'class'=> 'form-horizontal')) }}
@@ -66,7 +66,7 @@
                             <label for="role" class="col-md-4 control-label">Role</label>
                             
                             <div class="col-md-6">
-                                <select name="roles[]" class="form-control" id="example-getting-started" multiple="multiple">
+                                <select name="roles[]" class="form-control example-getting-started" multiple="multiple">
                                     @foreach($roles as $role)
                                     <option value="{{$role->name}}">{{$role->name}}</option>
                                     @endforeach
@@ -75,7 +75,7 @@
                         </div>
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Simpan
                                 </button>
                             </div>
                         </div>

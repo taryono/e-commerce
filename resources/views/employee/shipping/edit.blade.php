@@ -14,10 +14,10 @@
                         <div class="form-group">
                             <label for="courier_id" class="col-md-3 control-label">Supplier</label>
                             <div class="col-md-7">
-                                <select name="courier_id" class="form-control" id="courier_id">
+                                <select name="courier_id" class="form-control example-getting-started" id="courier_id">
                                     <option value="">-- Pilih Kurir --</option>
                                     @foreach($couriers as $s)
-                                    <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
+                                    <option value="{{$s->id}}" {{($shipping->courier_id == $s->id)?'selected="selected"':''}}>{{ucfirst($s->name)}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -26,7 +26,7 @@
                             <label for="send_date" class="col-md-3 control-label">Tanggal Kirim</label>
 
                             <div class="col-md-7">
-                                <input id="send_date" type="date" class="form-control" name="send_date" value="{{ old('send_date') }}" required autofocus>
+                                <input id="send_date" type="date" class="form-control" name="send_date" value="{{ date('Y-m-d',strtotime($shipping->send_date))}}" required autofocus>
                                 @if ($errors->has('send_date'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('send_date') }}</strong>
@@ -41,11 +41,15 @@
         </div>
     </div>
 </div>
-@endsection
-
+@endsection 
 @section('script')
 <script type="text/javascript">
 $(function(){
+     var checked = []; 
+    $.post('{{route("shipping.listCart")}}',{courier_id:'{{$shipping->courier_id}}',shipping_id:'{{$shipping->id}}'}, function(r){
+             $("div.list-cart").html(r);
+        });
+        
     $("body").on('change','select#courier_id', function(e){
         $.post('{{route("shipping.listCart")}}',{courier_id:$(this).val()}, function(r){
              $("div.list-cart").html(r);

@@ -1,8 +1,15 @@
 @extends('layouts.app') 
+@section('style')
+<style type="text/css">
+    .plus-collapse{
+        cursor: pointer;
+    }
+</style>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">List Pengiriman <div style="text-align: right">{!!getActions('shipping','create')?getActions('shipping','create'):NULL!!}</div></div>
 
@@ -11,17 +18,23 @@
                         <thead>
                             <tr class="ordering"> 
                                 <th width="10px">No</th>  
-                                <th width="10px">Nama</th>  
-                                <th width="10px">Aksi</th>  
+                                <th>Nama Kurir</th>  
+                                <th>Tanggal Pengiriman</th>
+                                <th>Aksi</th>  
                             </tr> 
                         </thead>
                         <tbody> 
                             @foreach($shippings as $key => $c)
  
                             <tr class="ordering">
-                                <th width="10px">{{++$key}}</th>  
-                                <th width="10px"><a href="{{route('shipping.detail',['id'=> $c->id])}}">{{$c->courier->name}}</a></th>
-                                <th width="10px">{!!getActions('shipping', 'edit',$c->id)?getActions('shipping', 'edit', $c->id):NULL!!}&nbsp;{!!getActions('shipping', 'destroy', $c->id)?getActions('shipping', 'destroy', $c->id):NULL!!}</th> 
+                                <th>{{++$key}}</th>  
+                                <th><i class="fa fa-plus-square plus-collapse" data-rowid="{{$c->id}}" data-url-source="{{route("cart.list_by_cart",$c->id)}}"></i> &nbsp;{{$c->courier->name}}</th>
+                                <th>{{date('d-m-Y', strtotime($c->send_date))}}</th>
+                                <th>{!!getActions('shipping', 'edit',$c->id)?getActions('shipping', 'edit', $c->id):NULL!!}&nbsp;{!!getActions('shipping', 'destroy', $c->id)?getActions('shipping', 'destroy', $c->id):NULL!!}</th> 
+                            </tr>
+                            <tr class="hide">
+                                <td>&nbsp;</td>
+                                <td class="hidden row_collapse" id="row_collapse_{{$c->id}}" colspan="3"></td>
                             </tr>
                             @endforeach
                         </tbody>
