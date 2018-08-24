@@ -38,4 +38,36 @@ class ProfileController extends Controller
         $role = $request->user()->roles()->first();
         return view('profile.user_profile', compact('user','role'));
     }
+    
+    public function view_password(Request $request, $id)
+    {	$user = \App\User::find($id); 
+        if($user){ 
+            return view('profile.change_password', compact('user'));
+        }
+        return redirect()->to(route('profile.index'));
+    }
+    
+    public function update_password(Request $request, $id)
+    {	$user = \App\User::find($id); 
+        if($user){ 
+            if($request->has('password')){
+                $user->password = bcrypt($request->input('password'));
+                $user->save();
+            } 
+        }
+        return redirect()->to(route('profile.index'));
+    }
+    
+     public function update(Request $request, $id)
+    {	$user = \App\User::find($id); 
+        if($user){
+            $user_detail = $user->user_detail;
+            $data = $request->input();
+            unset($data['email']); 
+            $user_detail->update($data);
+            $user->name = $user_detail->first_name.' '.$user_detail->last_name;
+            $user->save();
+            return redirect()->to(route('profile.index'));
+        }
+    }
 }

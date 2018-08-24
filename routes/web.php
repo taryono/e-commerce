@@ -49,7 +49,9 @@ Route::get('cart/update_cart/{cart_detail_id}', ['as'=> 'cart.update_cart', 'use
 Route::put('cart/update_cart_detail/{cart_detail_id}', ['as'=> 'cart.update_cart_detail', 'uses'=> 'Customer\CartController@update_cart_detail']);
 Route::delete('cart/delete_cart/{cart_detail_id}', ['as'=> 'cart.delete_cart', 'uses'=> 'Customer\CartController@delete_cart_detail']);
 Route::get('cart/paid/{cart_id}', ['as'=> 'cart.paid', 'uses'=> 'Customer\CartController@paid']);
-
+Route::post('product/search', ['as'=> 'product.search', 'uses'=> 'ProductController@search']);
+Route::get('profile/view_password/{user_id}', ['as'=> 'profile.view_password', 'uses'=> 'ProfileController@view_password']);
+Route::post('profile/update_password/{user_id}', ['as'=> 'profile.update_password', 'uses'=> 'ProfileController@update_password']);
 $controllers = \App\Models\Controller::all();
 foreach ($controllers as $controller) {
     //Route::resource($controller->title, $controller->name); 

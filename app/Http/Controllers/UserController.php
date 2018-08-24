@@ -37,6 +37,13 @@ class UserController extends AdminController
         return view('admin.user.edit', compact('user', 'roles'));
     }
     
+     public function update(Request $request, $id)
+    {	$user = User::find($id);
+        if($user){
+            return redirect()->to(route('user.index'));
+        }
+    }
+    
     public function destroy($id) {
         $user = User::find($id);
         if ($user) { 

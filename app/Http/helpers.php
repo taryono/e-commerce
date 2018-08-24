@@ -113,11 +113,11 @@ function menuBuilder($name, $type, $param = NULL) {
 
 function translate($type){
     $types=[
-        'destroy'=> 'Hapus',
-        'create'=> 'Tambah',
-        'edit'=> 'Ubah',
-        'update'=> 'Ubah',
-        'show'=> 'Detail',
+        'destroy'=> '<i class="fa fa-trash" aria-hidden="true"></i>',
+        'create'=> '<i class="fa fa-create" aria-hidden="true"></i>',
+        'edit'=> '<i class="fa fa-edit" aria-hidden="true"></i>',
+        'update'=> '<i class="fa fa-search" aria-hidden="true"></i>',
+        'show'=> '<i class="fa fa-trash" aria-hidden="true"></i>',
     ];
     return ucfirst($types[$type]);
 }

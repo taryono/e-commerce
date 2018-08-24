@@ -14,12 +14,6 @@
         <div class="row">
             <div class="col-md-12"> 
                 <div class="jumbotron">
-                    <h2>
-                        Assalamu'alaikum wrwb,
-                    </h2>
-                    <p>
-                        Selamat datang diwebsite kami
-                    </p>
                     <p>
                         <a class="btn btn-primary btn-large" href="#">Selengkapnya</a>
                     </p>
@@ -205,7 +199,7 @@
                         <input id='subtotal' type="hidden" name="subtotal" value="{{$craft->craft_detail?(int)$craft->craft_detail->price:0}}"> 
                         @if(Auth::check() && Auth::user()->hasRole('customer'))
                         <div class="form-group">   
-                            <button class="button btn-success form-control" id="pay">Tambahkan ke Keranjang Belanja</button>                        
+                            <button class="button btn-success form-control" id="pay">Belanja <i class="fa fa-cart-plus" title="Belanja" aria-hidden="true"></i></button>                        
                         </div>
                         @endif
                     </form>

@@ -27,21 +27,28 @@
                             </tr> 
                         </thead>
                         <tbody> 
-                            @foreach($carts as $key => $c)
+                            @if($carts->count()<1)
                             <tr class="ordering">
-                                <th>{{++$key}}</th>  
-                                <th><i class="fa fa-plus-square plus-collapse" data-rowid="{{$c->id}}" data-url-source="{{route("cart.list_by_cart",$c->id)}}"></i> &nbsp;{{$c->user->user_detail->first_name}}</th> 
-                                <th>{{$c->user->user_detail->address}}</th>
-                                <th>{{$c->user->user_detail->cellphone}}</th>
-                                <th>{{rupiahFormat($c->total)}}</th>
-                                <th>{{$c->status->name}}</th>
-                                <th>@if($c->status_id != 2) <a href="{{route("cart.paid",$c->id)}}">Bayar</a> &nbsp;{!!getActions('cart','destroy', $c->id)?getActions('cart','destroy', $c->id):NULL!!}@endif</th> 
+                                <th colspan="7" style="text-align: center; color: #28545b; font-size: 18px;">Keranjang Belanja Kosong</th>  
+                                
                             </tr>
-                            <tr class="hide">
-                                <td>&nbsp;</td>
-                                <td class="hidden row_collapse" id="row_collapse_{{$c->id}}" colspan="5"></td>
-                            </tr>
-                            @endforeach
+                            @else
+                                @foreach($carts as $key => $c)
+                                <tr class="ordering">
+                                    <th>{{++$key}}</th>  
+                                    <th><i class="fa fa-plus-square plus-collapse" data-rowid="{{$c->id}}" data-url-source="{{route("cart.list_by_cart",$c->id)}}"></i> &nbsp;{{$c->user->user_detail->first_name}}</th> 
+                                    <th>{{$c->user->user_detail->address}}</th>
+                                    <th>{{$c->user->user_detail->cellphone}}</th>
+                                    <th>{{rupiahFormat($c->total)}}</th>
+                                    <th>{{$c->status->name}}</th>
+                                    <th>@if($c->status_id != 2) <a href="{{route("cart.paid",$c->id)}}"><i class="fa fa-money" aria-hidden="true"></i></a> &nbsp;{!!getActions('cart','destroy', $c->id)?getActions('cart','destroy', $c->id):NULL!!}@endif</th> 
+                                </tr>
+                                <tr class="hide">
+                                    <td>&nbsp;</td>
+                                    <td class="hidden row_collapse" id="row_collapse_{{$c->id}}" colspan="5"></td>
+                                </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table> 
                     <div class="table-list-footer">

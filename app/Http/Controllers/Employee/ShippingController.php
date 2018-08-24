@@ -102,6 +102,7 @@ class ShippingController extends EmployeeController {
         if($request->has('shipping_id')){
             $shipping_id = $request->input('shipping_id');
             $shipping = \App\Models\Cart::find($shipping_id);
+            dd($shipping);
             $shipping_details = $shipping->shipping_detail; 
             return view('employee.shipping.list_cart', compact('carts', 'shipping_details'));
         }else{

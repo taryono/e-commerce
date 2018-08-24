@@ -9,6 +9,7 @@ class CartDetail extends Model {
     use SoftDeletes;
     public $guarded = ['id'];     
     protected $dates = ['deleted_at'];
+    protected $with = ['craft'];
     public function cart() {
         return $this->belongsTo(Cart::class);
     } 

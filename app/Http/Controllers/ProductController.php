@@ -36,5 +36,12 @@ class ProductController extends Controller {
         $crafts = \App\Models\Craft::where('category_id', $id)->paginate(20); 
         return view('welcome', compact('crafts'));
     }
+    
+    public function search($keyword) { 
+        $craft = \App\Models\Craft::whereHas('craft_detail', function($q) use($keyword){
+            $q->where('name', 'LIKE', $keyword);
+        })->get(); 
+        return view('content', compact('crafts'));
+    }
 
 }

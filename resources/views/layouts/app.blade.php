@@ -19,6 +19,8 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-multiselect.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/sticky-footer-navbar.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-comments.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/EasyAutocomplete-1.3.4/dist/easy-autocomplete.css') }}">
+        <!--link rel="stylesheet" type="text/css" href="{{ asset('plugins/EasyAutocomplete-1.3.4/dist/easy-autocomplete.themes.css') }}"-->
         <!--link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"-->
         <link rel="stylesheet" type="text/css" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
         @yield('style')
@@ -76,7 +78,7 @@
                     @if(!Auth::check() || (Auth::check() && Auth::user()->hasRole('customer')))
                     <form class="navbar-form navbar-left" method="POST" action="{{route('product.search')}}">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search" id="search">
                             {{csrf_field()}}
                         </div>
                         <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -98,7 +100,12 @@
                                     <a href="{{ route('profile.show',['id'=> Auth::user()->id]) }}">
                                         Profle
                                     </a>
-                                </li>    
+                                </li>  
+                                <li>
+                                    <a href="{{ route('profile.view_password',['id'=> Auth::user()->id]) }}">
+                                        Update Password
+                                    </a>
+                                </li>  
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -164,6 +171,17 @@
         </script> 
         <script type="text/javascript">
     $(document).ready(function () {
+        $("#search").easyAutocomplete({
+        url: '{{route("product.search")}}',
+        getValue: "name",
+        list: {	
+          match: {
+            enabled: true
+          }
+        },
+        theme: "square"
+      });
+        
         $('.plus-collapse').click(function () {
             var id = $(this).data('rowid');
             var url = $(this).data('url-source');
@@ -192,6 +210,7 @@
 </script>
         <script src="{{ asset('js/editor.js') }}"></script>
         <script src="{{ asset('js/apps.js') }}"></script>
+        <script src="{{ asset('plugins/EasyAutocomplete-1.3.4/dist/jquery.easy-autocomplete.js') }}"></script>
         <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg>
     </body>
 </html> 

@@ -92,8 +92,9 @@ use RegistersUsers;
                         'first_name' => $data['first_name'], 
                         'last_name' => $data['last_name'],
                         'address' => $data['address'],
-                        'cellphone' => $data['cellphone'],
-                        'user_id' => $user->id,
+                        'cellphone' => $data['cellphone'], 
+                        'phone_number' => $data['phone_number'],
+                        'zip_code' => $data['zip_code'],
                 ]);
             }else{
                 $user_detail =  \App\Models\UserDetail::create([ 
@@ -101,6 +102,8 @@ use RegistersUsers;
                             'last_name' => $data['last_name'],
                             'address' => $data['address'],
                             'cellphone' => $data['cellphone'],
+                            'phone_number' => $data['phone_number'],
+                            'zip_code' => $data['zip_code'],
                             'user_id' => $user->id,
                 ]);
             }

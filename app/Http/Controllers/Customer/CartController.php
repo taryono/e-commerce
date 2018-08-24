@@ -154,8 +154,7 @@ class CartController extends Controller {
     }
     
     public function list_by_cart($id) {
-        $cart = \App\Models\Cart::where('id', $id)->first();
-        
+        $cart = \App\Models\Cart::where('id', $id)->first(); 
         $cart_details = $cart->cart_detail;
         return view('customer.cart.list_by_cart', compact('cart_details'));
     }

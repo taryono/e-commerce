@@ -23,10 +23,10 @@
                             @foreach($users as $key => $c)
                             <tr class="ordering">
                                 <th width="10px">{{++$key}}</th>
-                                <th width="10px">{{$c->user_detail->first_name}}</th>  
+                                <th width="10px">{{$c->user_detail->first_name}}&nbsp;{{$c->user_detail->last_name}}</th>  
                                 <th width="10px">{{$c->email}}</th>
                                 <th width="10px">{{$c->user_detail->address}}</th>
-                                <th width="10px">{{($c->user_detail->is_veried == 1)?"Sudah Verifikasi":"Belum"}}</th>
+                                <th width="10px">{{($c->user_detail->is_verified == 1)?"Sudah Verifikasi":"Belum"}}</th>
                                 <th width="10px">{!!getActions('customer','edit', $c->id)?getActions('customer','edit', $c->id):NULL!!}&nbsp;{!!getActions('customer','destroy', $c->id)?getActions('customer','destroy', $c->id):NULL!!}</th> 
                             </tr>
                             @endforeach

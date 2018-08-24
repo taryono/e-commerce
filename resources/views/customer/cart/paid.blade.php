@@ -1,78 +1,60 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Detail</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Nama</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Alamat Email</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input id="role" type="hidden" class="form-control" name="role" value="employee">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Simpan
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<?php $cart_details = $cart->cart_detail; ?>
+<div class="container-fluid"> 
+    <div class="container">  
+        @if($cart_details->count() > 0) 
+        @foreach($cart_details->chunk(round(3)) as $chunks)
+        <div class="row">
+            @foreach($chunks as $cart_detail) 
+            <div class="col-lg-4"> 
+                <img class="rounded-circle" src="/uploads/<?= $cart_detail->craft->craft_image->path . '/' . $cart_detail->craft->craft_image->name ?>" alt="Generic placeholder image" width="140" height="140">
+                <h4>{{$cart_detail->craft->name}}</h4>
+                <table class="table table-striped">
+                    <tr class="table-success">
+                        <th width="100">Kategori</th>
+                        <th>{{$cart_detail->craft->category?$cart_detail->craft->category->name:NULL}} </th>
+                    </tr>
+                    <tr>
+                        <td width="100">Supplier</td>
+                        <td>{{$cart_detail->craft->supplier?$cart_detail->craft->supplier->name:NULL}} </td>
+                    </tr>
+                    <tr>
+                        <td width="100">Harga</td>
+                        <td>{{$cart_detail->craft->craft_detail?rupiahFormat($cart_detail->craft->craft_detail->price):NULL}} </td>
+                    </tr>
+                    <tr>
+                        <td width="100">Stok</td>
+                        <td>{{$cart_detail->craft->craft_detail?$cart_detail->craft->craft_detail->stock:NULL}} PCS</td>
+                    </tr>
+                </table>
+                <p style="font-weight: bold; color: red;">{{$cart_detail->amount}} x {{rupiahFormat($cart_detail->price)}}</p>
+            </div> 
+            @endforeach
+        </div><!-- /.row -->
+        @endforeach
+        <div class="row"> 
+            <div class="col-md-4">
+                <table class="table table-striped"> 
+                    <tr class="table-success">
+                        <th>Subtotal</th>
+                        <th>{{rupiahFormat($cart->subtotal)}}</th>
+                    </tr> 
+                    <tr class="table-success">
+                        <th>Fee</th>
+                        <th>{{rupiahFormat($cart->fee)}}</th>
+                    </tr> 
+                    <tr class="table-success">
+                        <th>Total</th>
+                        <th>{{rupiahFormat($cart->total)}}</th>
+                    </tr> 
+                </table> 
             </div>
+            <div class="col-md-2"><button class="button btn-success form-control" id="pay">Bayar</button>  </div>
+            <div class="col-md-6"></div>
         </div>
-    </div>
-</div>
+        @endif
+    </div> 
+</div> 
 @endsection

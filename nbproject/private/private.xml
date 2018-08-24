@@ -3,15 +3,33 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/x/resources/views/customer/cart/list_by_cart.blade.php</file>
-            <file>file:/C:/wamp64/www/x/app/Http/Controllers/Customer/CartController.php</file>
-            <file>file:/C:/wamp64/www/x/routes/web.php</file>
-            <file>file:/C:/wamp64/www/x/resources/views/customer/cart/edit.blade.php</file>
-            <file>file:/C:/wamp64/www/x/app/Http/Controllers/Employee/OrderController.php</file>
-            <file>file:/C:/wamp64/www/x/resources/views/detail.blade.php</file>
-            <file>file:/C:/wamp64/www/x/resources/views/customer/cart/paid.blade.php</file>
-            <file>file:/C:/wamp64/www/x/resources/views/customer/cart/list.blade.php</file>
-            <file>file:/C:/wamp64/www/x/app/Http/Controllers/ProductController.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Http/Controllers/ProfileController.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Models/Cart.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Http/helpers.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/customer/cart/paid.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Models/Category.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/customer/cart/list_by_cart.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Models/Shipping.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Http/Controllers/UserController.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/detail.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Http/Controllers/Employee/ShippingController.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Http/Controllers/Auth/RegisterController.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/employee/user/edit.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/layouts/app.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/User.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Models/CartDetail.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/contact.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/auth/register.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/.env.local</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Http/Controllers/Customer/CartController.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/employee/user/list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/employee/cart/list_by_cart.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/profile/user_profile.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/customer/cart/list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Http/Controllers/ProductController.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/app/Models/Craft.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/employee/cart/edit.blade.php</file>
+            <file>file:/C:/xampp/htdocs/x-new/resources/views/content.blade.php</file>
         </group>
     </open-files>
 </project-private>

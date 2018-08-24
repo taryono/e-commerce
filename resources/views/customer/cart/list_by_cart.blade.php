@@ -21,7 +21,7 @@
             <th>{{($c->cart->payment_date)?date('d-m-Y H:i:s', strtotime($c->cart->payment_date)):'NULL'}}</th> 
             <th>
                 @if($c->status_id != 2)
-                <a href="{{route("cart.update_cart",$c->id)}}">Edit</a>&nbsp;<a href="{{route("cart.delete_cart",$c->id)}}" class="delete">Hapus</a>
+                <a href="{{route("cart.update_cart",$c->id)}}"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;<a href="{{route("cart.delete_cart",$c->id)}}" class="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 @endif
             </th> 
         </tr>
