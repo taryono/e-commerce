@@ -114,13 +114,13 @@ function menuBuilder($name, $type, $param = NULL) {
 function translate($type){
     $types=[
         'destroy'=> '<i class="fa fa-trash" aria-hidden="true"></i>',
-        'create'=> '<i class="fa fa-create" aria-hidden="true"></i>',
+        'create'=> '<i class="fa fa-plus" aria-hidden="true"></i>',
         'edit'=> '<i class="fa fa-edit" aria-hidden="true"></i>',
         'update'=> '<i class="fa fa-search" aria-hidden="true"></i>',
         'show'=> '<i class="fa fa-trash" aria-hidden="true"></i>',
     ];
     return ucfirst($types[$type]);
 }
-function rupiahFormat($price, $decimal = 2) {
-    return "Rp.&nbsp;" . number_format((float) preg_replace('/[^0-9]/', '', $price), $decimal);
+function rupiahFormat($price) {
+    return "Rp.&nbsp;" . number_format((float) preg_replace('/[^0-9]/', '', $price));
 }
