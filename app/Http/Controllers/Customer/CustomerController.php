@@ -15,7 +15,7 @@ class CustomerController extends Controller
      * @return void
      */
     public function __construct()
-    {
+    { 
         $this->middleware(['auth','menu']);  
     } 
     /**
@@ -27,12 +27,12 @@ class CustomerController extends Controller
     {	
         return view('home');
     }
-    
+    /*
     public function create(Request $request)
     {	$roles = Role::where('name','<>', 'administrator')->get();
         return view('admin.employee.create', compact('roles'));
     }
-    
+    */
     /**
      * Create a new user instance after a valid registration.
      *

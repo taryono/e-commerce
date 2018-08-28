@@ -124,3 +124,16 @@ function translate($type){
 function rupiahFormat($price) {
     return "Rp.&nbsp;" . number_format((float) $price,2);
 }
+
+ function dateFormatIndo($date){
+    $days = [
+        'Mon'=> 'Senin',
+        'Tue'=> 'Selasa',
+        'Wed'=> 'Rabu',
+        'Thu'=> 'Kamis',
+        'Fri'=> 'Jum\'at',
+        'Sat'=> 'Sabtu',
+        'Sun'=> 'Ahad'
+    ];
+    return $days[date('D', strtotime($date))].' '.date('d-m-Y', strtotime($date));
+}

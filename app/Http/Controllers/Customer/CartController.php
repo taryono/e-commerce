@@ -6,21 +6,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller {
-
+ 
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
-        $request->user()->authorizeRoles(['employee', 'manager', 'customer']);
-        $carts = \App\Models\Cart::where('user_id', $request->user()->id)->paginate(20);
-        if ($request->user()->isAdmin() || $request->user()->hasRole('employee')) {
+    public function index(Request $request) { 
+        
+        if ($request->user() && ($request->user()->isAdmin() || $request->user()->hasRole('employee'))) {
             $carts = \App\Models\Cart::paginate(20);
             return view('employee.cart.list', compact('carts'));
-        }
-        
-        return view('customer.cart.list', compact('carts'));
+        }else if ($request->user() &&   $request->user()->hasRole('customer')) { 
+            $carts = \App\Models\Cart::where('user_id', $request->user()->id)->paginate(20);
+            return view('customer.cart.list', compact('carts'));
+        }else{
+          return  redirect()->to(route('welcome'));
+        } 
     }
 
     /**
@@ -106,34 +108,7 @@ class CartController extends Controller {
     public function show($id) {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    public function edit(Request $request, $id) {
-        $carts = \App\Models\Cart::where('user_id', $request->user()->id)
-                ->where('status_id', 1)
-                ->where('id','<>', $id)->get();
-        $cart = \App\Models\Cart::where('id', $id)->first();
-        $total = 0;
-        foreach($carts as $cr){
-            $total += $cr->total;
-        }
-        $total = $total + $cart->total;
-        $craft = $cart->cart_detail->craft;
-        $couriers = \App\Models\Courier::all();
-        $provinces = \App\Models\Province::all();
-        if ($request->user()->hasRole('employee')) {
-            return view('employee.cart.edit', compact('cart', 'craft', 'couriers', 'provinces'));
-        } else {
-            return view('customer.cart.edit-old', compact('cart', 'craft', 'couriers', 'provinces','carts','total'));
-        }
-    }*/
-    
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -141,15 +116,13 @@ class CartController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id) {
-        $cart = \App\Models\Cart::where('id', $id)->first();
-        
-        $craft = $cart->cart_detail->craft;
+        $cart = \App\Models\Cart::where('id', $id)->first();  
         $couriers = \App\Models\Courier::all();
         $provinces = \App\Models\Province::all();
-        if ($request->user()->hasRole('employee')) {
-            return view('employee.cart.edit', compact('cart', 'craft', 'couriers', 'provinces'));
+        if ($request->user() && ($request->user()->hasRole('employee') || $request->user()->hasRole('administrator'))) {
+            return view('employee.cart.edit', compact('cart', 'couriers', 'provinces'));
         } else {
-            return view('customer.cart.edit', compact('cart', 'craft', 'couriers', 'provinces','carts','total'));
+            return view('customer.cart.edit', compact('cart', 'couriers', 'provinces','carts','total'));
         }
     }
     
@@ -171,7 +144,16 @@ class CartController extends Controller {
         if ($request->user()->hasRole('employee','manager','administrator')) {
             $cart->update([
                 'status_id' => $request->input('status_id'),
+                'payment_date' => $request->input('payment_date'),
             ]);
+            if((int)$request->input('status_id') == 2){
+                 $cart_details = $cart->cart_detail;
+                 foreach ($cart_details as $detail) {
+                     $craft = $detail->craft;
+                     $craft->stock = $craft->stock - $detail->amount;
+                     $craft->save();
+                 }
+            }
         } else {
             $cart->update([
                 'user_id' => $request->input('user_id'), 

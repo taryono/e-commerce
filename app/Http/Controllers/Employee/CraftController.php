@@ -129,7 +129,7 @@ class CraftController extends EmployeeController
                         $path = File::createLocalDirectory($directory); 
                         $info = File::storeLocalFile($file, $path); 
                         if(file_exists($path.'/'.$craft_image->name)){
-                            unlink($path.'/'.$craft_image->name);
+                            //unlink($path.'/'.$craft_image->name);
                         } 
                         $craft_image->update([ 
                             'name'=> $info->getFilename(),
