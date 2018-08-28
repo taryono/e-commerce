@@ -78,7 +78,7 @@
                             <label for="phone_number" class="col-md-4 control-label">No Telp</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="number" class="form-control" name="phone_number" value="{{$user->user_detail->phone_number}}" autofocus>
+                                <input id="name" type="text" class="form-control" name="phone_number" value="{{$user->user_detail->phone_number}}" autofocus>
 
                                 @if ($errors->has('phone_number'))
                                     <span class="help-block">
@@ -95,6 +95,18 @@
                                 @if ($errors->has('date_of_birth'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('date_of_birth') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    <div class="form-group{{ $errors->has('zip_code') ? ' has-error' : '' }}">
+                            <label for="zip_code" class="col-md-4 control-label">Kode Pos</label>
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control datepicker" name="zip_code" value="{{$user->user_detail->zip_code}}" required autofocus>
+
+                                @if ($errors->has('zip_code'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('zip_code') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -118,7 +130,7 @@
                         <div class="form-group">
                             <label for="is_verifed" class="col-md-4 control-label">Status Member</label> 
                             <div class="col-md-6">
-                                <select name="is_verifed" class="form-control"> 
+                                <select name="is_verified" class="form-control"> 
                                     <option value="">---Pilih Status Verifikasi---</option>
                                     <option value="0" {{($user->user_detail->is_verified == 0)?'selected="selected"':""}}>Belum</option>
                                     <option value="1" {{($user->user_detail->is_verified == 1)?'selected="selected"':""}}>Sudah</option> 

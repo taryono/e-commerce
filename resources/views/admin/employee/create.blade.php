@@ -146,12 +146,9 @@
                             <label for="position" class="col-md-4 control-label">Jabatan</label> 
                             <div class="col-md-6">
                                 <select name="position" class="form-control example-getting-started"> 
-                                    <option value="manager">Manager</option>
-                                    <option value="staff">Staff</option>
-                                    <option value="hrd">HRD</option>
-                                    <option value="finance">Finance</option>
-                                    <option value="supervisor">Supervisor</option>
-                                    
+                                    @foreach($positions as $p)
+                                    <option value="{{$p->id}}">{{ucfirst($p->name)}}</option> 
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

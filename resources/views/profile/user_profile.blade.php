@@ -66,7 +66,7 @@
                             <label for="phone_number" class="col-md-4 control-label">No Telp</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="number" class="form-control" name="phone_number" value="{{ $user->user_detail->phone_number }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="phone_number" value="{{ $user->user_detail->phone_number }}" required autofocus>
 
                                 @if ($errors->has('phone_number'))
                                     <span class="help-block">
@@ -101,7 +101,22 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="form-group{{ $errors->has('sex') ? ' has-error' : '' }}">
+                            <label for="sex" class="col-md-4 control-label">Jenis Kelamin</label> 
+                            <div class="col-md-6">
+                                <label class="radio-inline">
+                                    <input id="name" type="radio" class="radio" name="sex" value="M" required autofocus {{(($user->user_detail->sex == "M")?"checked='checked'":"")}}>Laki - laki
+                                </label>
+                                <label class="radio-inline">
+                                    <input id="name" type="radio" class="radio" name="sex" value="F" required autofocus {{(($user->user_detail->sex == "F")?"checked='checked'":"")}}>Perempuan
+                                </label>
+                                @if ($errors->has('sex'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('sex') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group"> 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

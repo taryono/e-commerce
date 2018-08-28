@@ -28,7 +28,7 @@
  
                             <tr class="ordering">
                                 <th>{{++$key}}</th>  
-                                <th><i class="fa fa-plus-square plus-collapse" data-rowid="{{$c->id}}" data-url-source="{{route("cart.list_by_cart",$c->id)}}"></i> &nbsp;{{$c->courier->name}}</th>
+                                <th><i class="fa fa-plus-square plus-collapse" data-rowid="{{$c->id}}" data-url-source="{{route("shipping.listCartByShippingId",$c->id)}}"></i> &nbsp;{{$c->courier->name}}</th>
                                 <th>{{date('d-m-Y', strtotime($c->send_date))}}</th>
                                 <th>{!!getActions('shipping', 'edit',$c->id)?getActions('shipping', 'edit', $c->id):NULL!!}&nbsp;{!!getActions('shipping', 'destroy', $c->id)?getActions('shipping', 'destroy', $c->id):NULL!!}</th> 
                             </tr>

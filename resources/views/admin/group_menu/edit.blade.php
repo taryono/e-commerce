@@ -8,14 +8,14 @@
                 <div class="panel-heading">Edit Grup Menu</div>
 
                 <div class="panel-body">
-                    {{ Form::model($groups, array('route' => array('group_menu.update', $groups->id), 'method' => 'PUT', 'class'=> 'form-horizontal')) }}
+                    {{ Form::model($group, array('route' => array('group_menu.update', $group->id), 'method' => 'PUT', 'class'=> 'form-horizontal')) }}
                         {{ csrf_field() }}
                          
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Nama</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{$groups->name}}" required autofocus placeholder="menu.edit">
+                                <input id="name" type="text" class="form-control" name="name" value="{{$group->name}}" required autofocus placeholder="menu.edit">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -28,8 +28,8 @@
                             <label for="is_published" class="col-md-4 control-label">Is Publish</label> 
                             <div class="col-md-6">
                                 <select name="is_published" class="form-control"> 
-                                    <option value="0" {{($groups->is_published == 0)?'selected="selected"':''}}>Tidak Aktif</option>                       
-                                    <option value="1" {{($groups->is_published == 1)?'selected="selected"':''}}">Aktif</option>
+                                    <option value="0" {{($group->is_published == 0)?'selected="selected"':''}}>Tidak Aktif</option>                       
+                                    <option value="1" {{($group->is_published == 1)?'selected="selected"':''}}">Aktif</option>
                                 </select>
                             </div>
                         </div> 

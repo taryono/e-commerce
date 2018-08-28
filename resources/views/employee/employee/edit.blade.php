@@ -68,7 +68,7 @@
                             <label for="phone_number" class="col-md-4 control-label">No Telp</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="number" class="form-control" name="phone_number" value="{{$employee->phone_number}}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="phone_number" value="{{$employee->phone_number}}" required autofocus>
 
                                 @if ($errors->has('phone_number'))
                                     <span class="help-block">

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Assalamu'alaikum wrwb..
                 </div>
             </div>
         </div>
