@@ -33,7 +33,7 @@
                                 <th>{{$c->user->user_detail->address}}</th>
                                 <th>{{$c->user->user_detail->cellphone}}</th>
                                 <th>{{$c->status->name}}</th>
-                                <th>@if($c->status_id != 2){!!getActions('cart','destroy', $c->id)?getActions('cart','destroy', $c->id):NULL!!}@endif</th> 
+                                <th>@if($c->status_id != 2){!!getActions('cart','edit', $c->id)?getActions('cart','edit', $c->id):NULL!!} &nbsp;{!!getActions('cart','destroy', $c->id)?getActions('cart','destroy', $c->id):NULL!!} @endif</th> 
                             </tr>
                             <tr class="hide">
                                 <td>&nbsp;</td>

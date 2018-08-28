@@ -16,8 +16,10 @@
                                 <th>Nama Barang</th> 
                                 <th>Harga</th>  
                                 <th>Jumlah Pembelian</th>
-                                <th>Subtotal</th>
-                                <th>Aksi</th>  
+                                <th>Subtotal</th> 
+                                <th>Fee</th> 
+                                <th>Total</th> 
+                                <th>Tangal Pembayaran</th> 
                             </tr> 
                         </thead>
                         <tbody> 
@@ -30,7 +32,9 @@
                                     <th>{{rupiahFormat($c->price)}}</th>
                                     <th>{{$c->amount}}</th>
                                      <th>{{rupiahFormat($c->subtotal)}}</th>
-                                    <th>{!!getActions('craft', 'edit',$c->id)?getActions('craft', 'edit', $c->id):NULL!!}&nbsp;{!!getActions('craft', 'destroy', $c->id)?getActions('craft', 'destroy', $c->id):NULL!!}</th> 
+                                    <th>{{rupiahFormat($c->cart->fee)}}</th>
+                                    <th>{{rupiahFormat($c->cart->total)}}</th>
+                                    <th>{{dateFormatIndo($c->cart->payment_date)}}</th>
                                 </tr>
                                 @endforeach
                             @else

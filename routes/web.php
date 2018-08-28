@@ -33,7 +33,7 @@ Route::get('/admin/home', 'Admin\AdminController@index')->name('admin');
   DELETE	/photos/{photo}         destroy     photos.destroy
  */
 $menus = \App\Models\Menu::where('is_show', 1)->get();
-
+Route::get('shipping/list_cart/{shipping_id}', ['as'=> 'shipping.listCartByShippingId', 'uses'=> 'Employee\ShippingController@listCartByShippingId']);
 foreach ($menus as $m) {
     if ($m->method == "get") {
         Route::get($m->name, $m->controller->name . $m->action)->name($m->route);
@@ -52,7 +52,7 @@ Route::get('cart/paid/{cart_id}', ['as'=> 'cart.paid', 'uses'=> 'Customer\CartCo
 Route::get('product/search', ['as'=> 'product.search', 'uses'=> 'ProductController@search']); 
 Route::get('profile/view_password/{user_id}', ['as'=> 'profile.view_password', 'uses'=> 'ProfileController@view_password']);
 Route::post('profile/update_password/{user_id}', ['as'=> 'profile.update_password', 'uses'=> 'ProfileController@update_password']);
-Route::get('shipping/list_cart/{shipping_id}', ['as'=> 'shipping.listCartByShippingId', 'uses'=> 'Employee\ShippingController@listCartByShippingId']);
+
 $controllers = \App\Models\Controller::all();
 foreach ($controllers as $controller) {
     //Route::resource($controller->title, $controller->name); 
