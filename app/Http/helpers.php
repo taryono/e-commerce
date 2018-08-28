@@ -122,5 +122,5 @@ function translate($type){
     return ucfirst($types[$type]);
 }
 function rupiahFormat($price) {
-    return "Rp.&nbsp;" . number_format((float) preg_replace('/[^0-9]/', '', $price));
+    return "Rp.&nbsp;" . number_format((float) $price,2);
 }
