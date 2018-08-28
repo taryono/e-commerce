@@ -61,18 +61,19 @@ class CraftController extends EmployeeController
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         */
-        if ($request->file('image')->isValid()) {
-            $file = $request->file('image');  
-            // image upload in public/upload folder.
-            $storage = base_path('public/uploads');
-            $directory = $storage."/".$craft->category->name;
-            $path = File::createLocalDirectory($directory); 
-            $info = File::storeLocalFile($file, $path);   
-            $craft_image->path = $craft->category->name;
-            $craft_image->name = $info->getFilename();
-            $craft_image->save();
+        if($request->has('image')){
+            if ($request->file('image')->isValid()) {
+                $file = $request->file('image');  
+                // image upload in public/upload folder.
+                $storage = base_path('public/uploads');
+                $directory = $storage."/".$craft->category->name;
+                $path = File::createLocalDirectory($directory); 
+                $info = File::storeLocalFile($file, $path);   
+                $craft_image->path = $craft->category->name;
+                $craft_image->name = $info->getFilename();
+                $craft_image->save();
+            }
         }
-        
         return redirect()->route('craft.index');
     }
     
@@ -117,47 +118,47 @@ class CraftController extends EmployeeController
                 'price'=> $request->input('price'),
                 'stock'=> $request->input('stock'),
             ]);
-            
-            $craft_image = \App\Models\CraftImage::where('craft_id',$id )->first();
-            if($craft_image){ 
-                if ($request->file('image')->isValid()) {
-                    $file = $request->file('image');  
-                    // image upload in public/upload folder.
-                    $storage = base_path('public/uploads');
-                    $directory = $storage."/".$craft->category->name;
-                    $path = File::createLocalDirectory($directory); 
-                    $info = File::storeLocalFile($file, $path); 
-                    if(file_exists($path.'/'.$craft_image->name)){
-                        unlink($path.'/'.$craft_image->name);
-                    } 
-                    $craft_image->update([ 
-                        'name'=> $info->getFilename(),
-                        'thumbnail'=> $request->input('thumbnail'),
-                        'path'=> $craft->category->name,
-                    ]);
-                }
+            if($request->has('image')){
+                $craft_image = \App\Models\CraftImage::where('craft_id',$id )->first();
+                if($craft_image){ 
+                    if ($request->file('image')->isValid()) {
+                        $file = $request->file('image');  
+                        // image upload in public/upload folder.
+                        $storage = base_path('public/uploads');
+                        $directory = $storage."/".$craft->category->name;
+                        $path = File::createLocalDirectory($directory); 
+                        $info = File::storeLocalFile($file, $path); 
+                        if(file_exists($path.'/'.$craft_image->name)){
+                            unlink($path.'/'.$craft_image->name);
+                        } 
+                        $craft_image->update([ 
+                            'name'=> $info->getFilename(),
+                            'thumbnail'=> $request->input('thumbnail'),
+                            'path'=> $craft->category->name,
+                        ]);
+                    }
 
-                
-            }else{
-                $craft_image = \App\Models\CraftImage::create([
-                    'craft_id'=> $craft->id,   
-                ]); 
-                if ($request->file('image')->isValid()) {
-                    $file = $request->file('image');  
-                    // image upload in public/upload folder.
-                    $storage = base_path('public/uploads');
-                    $directory = $storage."/".$craft->category->name;
-                    $path = File::createLocalDirectory($directory); 
-                    $info = File::storeLocalFile($file, $path);  
-                    
-                    $craft_image->update([ 
-                        'name'=> $info->getFilename(), 
-                        'path'=> $craft->category->name,
-                    ]);
+
+                }else{
+                    $craft_image = \App\Models\CraftImage::create([
+                        'craft_id'=> $craft->id,   
+                    ]); 
+                    if ($request->file('image')->isValid()) {
+                        $file = $request->file('image');  
+                        // image upload in public/upload folder.
+                        $storage = base_path('public/uploads');
+                        $directory = $storage."/".$craft->category->name;
+                        $path = File::createLocalDirectory($directory); 
+                        $info = File::storeLocalFile($file, $path);  
+
+                        $craft_image->update([ 
+                            'name'=> $info->getFilename(), 
+                            'path'=> $craft->category->name,
+                        ]);
+                    }
+
                 }
-                
             }
-            
         }else{
             \App\Models\CraftDetail::create([
                 'craft_id'=> $craft->id,
@@ -167,24 +168,24 @@ class CraftController extends EmployeeController
                 'price'=> $request->input('price'),
                 'stock'=> $request->input('stock'),
             ]);
-            
-            $craft_image = \App\Models\CraftImage::where('craft_id',$id )->first();
-            if($craft_image){
-                $craft_image->update([
-                    'craft_id'=> $craft->id,
-                    'name'=> $request->input('file_name'),
-                    'thumbnail'=> $request->input('thumbnail'),
-                    'path'=> $request->input('path'),
-                ]);
-            }else{
-                \App\Models\CraftImage::create([
-                    'craft_id'=> $craft->id,
-                    'name'=> $request->input('file_name'),
-                    'thumbnail'=> $request->input('thumbnail'),
-                    'path'=> $request->input('path'),
-                ]);
+            if($request->has('image')){
+                $craft_image = \App\Models\CraftImage::where('craft_id',$id )->first();
+                if($craft_image){
+                    $craft_image->update([
+                        'craft_id'=> $craft->id,
+                        'name'=> $request->input('file_name'),
+                        'thumbnail'=> $request->input('thumbnail'),
+                        'path'=> $request->input('path'),
+                    ]);
+                }else{
+                    \App\Models\CraftImage::create([
+                        'craft_id'=> $craft->id,
+                        'name'=> $request->input('file_name'),
+                        'thumbnail'=> $request->input('thumbnail'),
+                        'path'=> $request->input('path'),
+                    ]);
+                }
             }
-            
         }
         
         

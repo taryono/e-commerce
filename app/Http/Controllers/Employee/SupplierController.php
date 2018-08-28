@@ -38,6 +38,23 @@ class SupplierController extends EmployeeController {
             return view('employee.supplier.edit', compact('supplier'));
         }
     }
+    
+    public function update(Request $request, $id)
+    {	$supplier = \App\Models\Supplier::find($id);
+    
+        if($supplier){
+            $supplier->update([
+                'name'=>  $request->input('name'),
+                'address'=> $request->input('address'),  
+            ]);
+            
+            return redirect()->route('supplier.index');
+        }
+         
+        abort(404);
+        
+    }
+
 
     public function destroy($id) {
         $supplier = \App\Models\Supplier::find($id);

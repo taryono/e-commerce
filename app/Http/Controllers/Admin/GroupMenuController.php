@@ -26,29 +26,29 @@ class GroupMenuController extends AdminController
     }
     
     public function edit($id)
-    {	$groups = \App\Models\GroupMenu::find($id);
-        return view('admin.group_menu.edit', compact('groups'));
+    {	$group = \App\Models\GroupMenu::find($id);
+        return view('admin.group_menu.edit', compact('group'));
     }
     
     public function store(Request $request)
     {	$group_menu = \App\Models\GroupMenu::create([
-            'is_published'=> $request->input('is_publish'),
+            'is_published'=> $request->input('is_published'),
             'name'=> $request->input('name'),
              
         ]); 
         return redirect()->route('group_menu.index');
     }
     
-    public function update(Request $request)
-    {	$id = $request->input('id');
+    public function update(Request $request, $id)
+    {	 
         $group_menu = \App\Models\GroupMenu::find($id);
-        
+         
         if($group_menu){
             $group_menu->update([
                 //'route'=> $request->input('route'),
                 'name'=> $request->input('name'), 
-                'is_published'=> $request->input('is_publish'),
-            ]); 
+                'is_published'=> $request->input('is_published'),
+            ]);  
         }
         return redirect()->route('group_menu.index');
     }

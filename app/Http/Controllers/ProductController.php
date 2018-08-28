@@ -20,28 +20,29 @@ class ProductController extends Controller {
         return view('client.product.create');
     }
 
-    public function show($id) {
+    public function show($id) { 
         $crafts = \App\Models\Craft::where('category_id', $id)->paginate(20); 
         return view('welcome', compact('crafts'));
     }
 
     public function detail($id) { 
+        
         $craft = \App\Models\Craft::where('id', $id)->first();
         $couriers = \App\Models\Courier::all(); 
         $provinces = \App\Models\Province::all();
         return view('detail', compact('craft','couriers', 'provinces'));
     }
     
-     public function byCategory($id) {
+     public function byCategory($id) { 
         $crafts = \App\Models\Craft::where('category_id', $id)->paginate(20); 
         return view('welcome', compact('crafts'));
     }
     
-    public function search($keyword) { 
-        $craft = \App\Models\Craft::whereHas('craft_detail', function($q) use($keyword){
-            $q->where('name', 'LIKE', $keyword);
+    public function search(Request $request) { 
+        $keyword = $request->input('search');
+        $crafts = \App\Models\Craft::select('id','name')->whereHas('craft_detail', function($q) use($keyword){
+            $q->where('name', 'LIKE', '%'.$keyword.'%');
         })->get(); 
-        return view('content', compact('crafts'));
-    }
-
+        return view('search-content', compact('crafts'));
+    } 
 }

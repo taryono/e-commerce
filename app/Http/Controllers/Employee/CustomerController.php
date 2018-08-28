@@ -98,6 +98,7 @@ class CustomerController extends EmployeeController
                 'address'=> $data['address'],
                 'cellphone'=> $data['cellphone'],
                 'phone_number'=> $data['phone_number'],
+                'is_verified'=> $data['is_verified'],
             ]); 
         $is_verified = TRUE;
         foreach($data as $key => $val){

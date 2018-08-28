@@ -73,6 +73,8 @@ use RegistersUsers;
                         'email' => $data['email'],
                         'address' => $data['address'],
                         'cellphone' => $data['cellphone'],
+                        'phone_number' => $data['phone_number'],
+                        'zip_code' => $data['zip_code'],
                         'user_id' => $user->id,
                 ]);
             }else{
@@ -82,6 +84,8 @@ use RegistersUsers;
                             'email' => $data['email'],
                             'address' => $data['address'],
                             'cellphone' => $data['cellphone'],
+                            'phone_number' => $data['phone_number'],
+                            'zip_code' => $data['zip_code'],
                             'user_id' => $user->id,
                 ]);
             }

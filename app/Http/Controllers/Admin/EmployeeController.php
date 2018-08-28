@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Models\Employee;
+use App\User; 
 use App\Models\Role;
 class EmployeeController extends AdminController
 { 
@@ -40,7 +39,8 @@ class EmployeeController extends AdminController
     
     public function create(Request $request)
     {	$roles = Role::where('name','<>', 'administrator')->get();
-        return view('admin.employee.create', compact('roles'));
+        $positions = \App\Models\Position::all();
+        return view('admin.employee.create', compact('roles','positions'));
     }
     
     /**
@@ -52,12 +52,12 @@ class EmployeeController extends AdminController
     public function store(Request $request) {
         $data = $request->input();
         $user = User::create([
-                    'name' => $data['name'],
+                    //'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => bcrypt($data['password']),
         ]);
         if(array_key_exists('roles', $data)){
-            $user = Employee::create([
+            $user_detail = \App\Models\UserDetail::create([
                         'name' => $data['name'],
                         'email' => $data['email'],
                         'address' => $data['address'],
@@ -68,6 +68,9 @@ class EmployeeController extends AdminController
                         'position' => $data['position'],
                         'user_id' => $user->id,
             ]);
+            $user->name = $user_detail->first_name.' '.$user_detail->last_name;
+            $user->save();
+            
             foreach($data['roles'] as $role)
             $user->roles()->attach(Role::where('name', $role)->first());
         } 
@@ -81,7 +84,7 @@ class EmployeeController extends AdminController
     }
     
     public function show($id)
-    {	$user = Employee::find($id);
+    {	$user = User::find($id);
         $roles = Role::where('name','<>', 'administrator')->get();
         return view('admin.employee.edit', compact('roles', 'employee'));
     }
@@ -106,26 +109,45 @@ class EmployeeController extends AdminController
                                'cellphone' => $data['cellphone'],
                                'phone_number' => $data['phone_number'],
                                'date_of_birth' => $data['date_of_birth'],
+                               'position' => $data['position'],
                                'sex' => $data['sex'], 
                    ]);
                 }else{
-                    \App\Models\UserDetail::create([
+                    $user_detail = \App\Models\UserDetail::create([
                         'first_name' => $data['first_name'],
                         'last_name' => $data['last_name'],
                         'address' => $data['address'],
                         'cellphone' => $data['cellphone'],
                         'phone_number' => $data['phone_number'],
                         'date_of_birth' => $data['date_of_birth'],
-                        'sex' => $data['sex'], 
+                        'sex' => $data['sex'],
+                        'position' => $data['position'],
                         'user_id' => $user->id, 
                     ]);
                 }
             }
-           
+            $user->name = $user_detail->first_name.' '.$user_detail->last_name;
+            $user->save();
             $user->roles()->detach();
             foreach($data['roles'] as $role)
             $user->roles()->attach(Role::where('name', $role)->first());
         } 
         return  redirect($this->redirectTo);
+    }
+    
+    public function destroy($id)
+    {	$user = \App\User::find($id);
+        if($user){
+            $role_users = \App\Models\RoleUser::where([
+                'user_id'=> $id,
+            ])->get();
+            if($role_users->count() > 0){
+                foreach ($role_users as $role) {
+                    $role->delete();
+                }
+            }
+            return response()->json(['success' => $user->delete(), 'redirect' => 'employee'], 200);
+        }
+        abort(404);
     }
 }

@@ -34,7 +34,7 @@ class ProfileController extends Controller
     }
     
     public function show(Request $request, $id)
-    {	$user = $request->user()->where('id', \Auth::user()->id)->first();  
+    {	$user = $request->user()->where('id', $id)->first();  
         $role = $request->user()->roles()->first();
         return view('profile.user_profile', compact('user','role'));
     }
