@@ -20,7 +20,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	$request->user()->authorizeRoles(['employee', 'manager','customer']);  
+    {	 
         return view('home');
     }
     
@@ -29,7 +29,7 @@ class ProfileController extends Controller
     }
     
     public function user_profile(Request $request)
-    {	#$request->user()->authorizeRoles(['employee', 'manager','customer']);  
+    {	 
         return view('customer.profile.user_profile');
     }
     

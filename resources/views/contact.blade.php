@@ -1,4 +1,7 @@
 @extends('layouts.app') 
+@section('styles')  
+<link rel="stylesheet" href="{{ asset('plugins/editable/bootstrap3-editable/css/bootstrap-editable.css')}}"> 
+@stop
 @section('content')
 <div class="container-fluid">  
     <div class="row">
@@ -8,8 +11,11 @@
                     Assalamu'alaikum wrwb..
                 </h2>
                 <p>
-                    Hubungi Kami di:<br>
-                    Jl Penggilingan Selatan, Sentra Primer
+                    @if(Auth::check() && Auth::user()->hasRole('administrator'))
+                    <a href="#" id="contact" data-name="contact" data-type="text" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->contact}}</a>
+                    @else 
+                        {{$about->contact}}asds
+                    @endif 
                     
                 </p>
                 <p>
@@ -19,4 +25,15 @@
         </div>
     </div>
 </div>
+
+@section('script')
+ <script src="{{ asset('plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js')}}" type="text/javascript"></script>
+    <script>
+            $(function(){
+                $.fn.editable.defaults.mode = 'inline';
+                $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
+                $("a#contact").editable();
+            });
+        </script>
+@endsection 
 @endsection

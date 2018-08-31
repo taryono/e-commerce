@@ -14,7 +14,7 @@ class MenuController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	$request->user()->authorizeRoles(['administrator']);
+    {	 
         $menus = Menu::where('parent',0)->paginate(20);
         return view('admin.menu.list', compact('menus'));
     }

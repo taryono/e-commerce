@@ -26,10 +26,10 @@ class ProductController extends Controller {
     }
 
     public function detail($id) { 
-        
+         
         $craft = \App\Models\Craft::where('id', $id)->first();
         $couriers = \App\Models\Courier::all(); 
-        $provinces = \App\Models\Province::all();
+        $provinces = \App\Models\Province::all(); 
         return view('detail', compact('craft','couriers', 'provinces'));
     }
     

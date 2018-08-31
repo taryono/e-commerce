@@ -97,9 +97,9 @@
                         <td style="width: 150px">Jasa Pengiriman </td>
                         <td> 
                             <div class="form-group">  
-                                <select name="supplier_id" class="form-control example-getting-started" style="width: 150px;">
+                                <select name="courier" class="form-control example-getting-started courier" style="width: 150px;">
                                     @foreach($couriers as $s)
-                                    <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
+                                    <option value="{{$s->id}}" {{($cart->courier_id ==$s->id)?'selected="selected"':''}}>{{ucfirst($s->name)}}</option>
                                     @endforeach
                                 </select> 
                             </div>
@@ -201,6 +201,7 @@
                         <input id='user_id' type="hidden" name="user_id" value="{{Auth::user()->id}}">
                         @endif
                         <input id='last_amount' type="hidden" name="amount" value="1">
+                        <input id='courier' type="hidden" name="courier_id" value="{{$couriers[0]->id}}">
                         <input id='to_province_id' type="hidden" name="to_province_id" value="1">
                         <input id='craft_id' type="hidden" name="craft_id" value="{{$craft->id}}">
                         <input id='price' type="hidden" name="price" value="{{$craft->craft_detail?(int)$craft->craft_detail->price:0}}">
@@ -295,6 +296,11 @@ $(function () {
 
     }).on('change','select.to_province_id', function(e){
         $("input#to_province_id").val($(this).val());
+        $val = $(this).val();
+        $fee = $("input.fees#" + $val).val();
+        $("div.fee").text(app.rupiah(parseInt($fee) * 10000)); 
+    }).on('change','select.courier', function(e){
+        $("input#courier").val($(this).val());
         $val = $(this).val();
         $fee = $("input.fees#" + $val).val();
         $("div.fee").text(app.rupiah(parseInt($fee) * 10000)); 

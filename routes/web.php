@@ -32,8 +32,7 @@ Route::get('/admin/home', 'Admin\AdminController@index')->name('admin');
   PUT/PATCH	/photos/{photo}	update      photos.update
   DELETE	/photos/{photo}         destroy     photos.destroy
  */
-$menus = \App\Models\Menu::where('is_show', 1)->get();
-Route::get('shipping/list_cart/{shipping_id}', ['as'=> 'shipping.listCartByShippingId', 'uses'=> 'Employee\ShippingController@listCartByShippingId']);
+$menus = \App\Models\Menu::where('is_show', 1)->get(); 
 foreach ($menus as $m) {
     if ($m->method == "get") {
         Route::get($m->name, $m->controller->name . $m->action)->name($m->route);

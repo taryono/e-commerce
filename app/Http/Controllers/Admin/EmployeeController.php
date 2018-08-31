@@ -30,7 +30,7 @@ class EmployeeController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	$request->user()->authorizeRoles(['administrator','employee']);
+    {	 
          $users = \App\User::with('user_detail')->whereHas('roles', function($q){
             $q->whereNotIn('name', ['customer','administrator']);
         })->paginate(20);

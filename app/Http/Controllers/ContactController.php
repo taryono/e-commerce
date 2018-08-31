@@ -13,7 +13,7 @@ class ContactController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	  
-        return view('contact');
+    {	$about = \App\Models\Company::first();
+        return view('contact', compact('about')); 
     }
 }

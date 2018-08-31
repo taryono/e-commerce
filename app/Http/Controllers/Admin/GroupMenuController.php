@@ -14,7 +14,7 @@ class GroupMenuController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	$request->user()->authorizeRoles(['administrator']);
+    {	 
         $group_menus = \App\Models\GroupMenu::paginate(20);
         return view('admin.group_menu.list', compact('group_menus'));
     }

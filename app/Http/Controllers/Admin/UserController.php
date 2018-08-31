@@ -14,7 +14,7 @@ class UserController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	$request->user()->authorizeRoles(['administrator']);
+    {	 
         $users = User::paginate(20);
         return view('admin.user.list', compact('users'));
     }

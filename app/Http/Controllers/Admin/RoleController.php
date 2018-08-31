@@ -14,8 +14,8 @@ class RoleController extends AdminController {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $request->user()->authorizeRoles(['administrator']);
-        $roles = \App\Models\Role::where('name', '<>', 'administrator')->paginate(5);
+         
+        $roles = \App\Models\Role::where('name', '<>', 'administrator')->paginate(10);
         return view('admin.role.list', compact('roles'));
     }
 

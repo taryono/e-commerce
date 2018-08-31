@@ -15,7 +15,7 @@ class CustomerController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	$request->user()->authorizeRoles(['administrator','customer','employee']);
+    {	 
         $customers = Customer::paginate(5);
         return view('admin.customer.list', compact('customers'));
     }

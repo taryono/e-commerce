@@ -14,7 +14,7 @@ class AclController extends AdminController {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $request->user()->authorizeRoles(['administrator']);
+         
         $menus = \App\Models\Menu::all();
         $roles = \App\Models\Role::where('parent', 1)->paginate();
         return view('admin.acl.list', compact('menus', 'roles'));

@@ -36,7 +36,7 @@
                 <h4>@if(!Auth::check())Untuk melanjutkan pembelian silahkan  <a href="{{route('login',['params'=> ['redirect'=> 'product.detail','param'=>$craft->id]])}}">login</a> dan isi form berikut: @endif </h4>
                 <table class="table table-responsive">
                     <tr>
-                        <td style="width: 150px">Jasa Pengiriman </td>
+                        <td style="width: 150px">Jasa Pengiriman</td>
                         <td> 
                             <div class="form-group">   
                                 <select id="courier_id" name="courier_id" class="form-control example-getting-started">

@@ -14,7 +14,7 @@ class PriceController extends EmployeeController
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {	$request->user()->authorizeRoles(['employee', 'manager']);
+    {	 
         $prices = \App\Models\Price::paginate(15);
         return view('employee.price.list', compact('prices'));
     } 
