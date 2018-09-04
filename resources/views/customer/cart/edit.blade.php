@@ -5,7 +5,7 @@
     <div class="container"> 
         <div class="row"> 
             <div class="col-md-6">
-                <img alt="Bootstrap Image Preview" src="{{asset('images/harley (2).jpeg')}}" width="500" height="400" class="img-responsive" />
+                <img alt="Bootstrap Image Preview" src="/uploads/<?= $craft->craft_image->path . '/' . $craft->craft_image->name ?>" width="500" height="400" class="img-responsive" />
                 <h4>{{$craft->name}}</h4>
                 <table class=" table table-bordered">
                     <tr>

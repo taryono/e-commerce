@@ -8,7 +8,7 @@
                 <div class="panel-heading">Tambah Pengiriman</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('shipping.store') }}">
+                    <form class="form-horizontal form-validation" method="POST" action="{{ route('shipping.store') }}">
                         {{ csrf_field() }} 
                         
                         <div class="form-group">
@@ -53,4 +53,37 @@ $(function(){
     });
 });
 </script>
-@endsection
+
+<script type="text/javascript">
+$(function(){ 
+    var checked = [];
+     
+    $("body").on('change','input.checked_ids', function(e){
+        var val = $(this).val();
+        if(this.checked){
+            checked.push(val); 
+        }else{
+            var index = checked.indexOf(val);
+            if (index > -1) {
+               checked.splice(index, 1);
+            }
+        }
+        console.log(checked);
+        if(checked.length > 0){
+            $('button.submit-shipping').removeAttr("disabled");
+        }else{
+            $('button.submit-shipping').attr("disabled", "disabled");
+        }
+ 
+    }).on('click','button.submit-shipping',function (event) {
+        event.preventDefault();
+        if (checked.length > 0) {
+            $("form.form-validation").submit();
+        } else {
+            alert('Pilih belanja yang hendak dikirim.');
+            return false;
+        }
+    });
+});
+</script>
+@endsection 

@@ -36,7 +36,7 @@ if($shipping_details && $shipping_details->count() > 0){
 </div> 
 <div class="form-group"> 
     <div class="col-md-6 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary submit-shipping"  disabled="disabled">
             Submit
         </button>
         &nbsp; <button type="button" onclick="window.location.href ='{{route("shipping.index")}}'" class="btn btn-primary">
@@ -50,26 +50,3 @@ if($shipping_details && $shipping_details->count() > 0){
     <div class="col-md-7"><h4>List Belanja Kosong...</h4></div>
 </div>
 @endif 
-@section('script')
-<script type="text/javascript">
-$(function(){
-    /*
-    var checked = [];
-    $.each('input.checked_ids', function(key, val){
-        console.log();
-    });
-    $("body").on('change','input.checked_ids', function(e){
-        var val = $(this).val();
-        if(true){
-            checked.push(val); 
-        }else{
-            var index = checked.indexOf(val);
-            if (index > -1) {
-               checked.splice(index, 1);
-            }
-        }
-        console.log(val);
-    });*/
-});
-</script>
-@endsection

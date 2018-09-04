@@ -17,10 +17,8 @@
                 <h2>
                     Assalamu'alaikum wrwb..
                 </h2>
-                <p>
-                    Hubungi Kami di:<br>
-                    Jl Penggilingan Selatan, Sentra Primer
-                    
+                <p> 
+                    <?php echo $about->content;?>
                 </p>
                 <p>
                     <a class="btn btn-primary btn-large" href="#">Selengkapnya</a>
@@ -99,7 +97,7 @@
                             <div class="form-group">  
                                 <select name="courier" class="form-control example-getting-started courier" style="width: 150px;">
                                     @foreach($couriers as $s)
-                                    <option value="{{$s->id}}" {{($cart->courier_id ==$s->id)?'selected="selected"':''}}>{{ucfirst($s->name)}}</option>
+                                    <option value="{{$s->id}}">{{ucfirst($s->name)}}</option>
                                     @endforeach
                                 </select> 
                             </div>

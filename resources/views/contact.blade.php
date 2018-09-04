@@ -14,7 +14,7 @@
                     @if(Auth::check() && Auth::user()->hasRole('administrator'))
                     <a href="#" id="contact" data-name="contact" data-type="text" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->contact}}</a>
                     @else 
-                        {{$about->contact}}asds
+                        {{$about->contact}}
                     @endif 
                     
                 </p>

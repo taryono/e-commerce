@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use View;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +14,8 @@ class HomeController extends Controller
     public function __construct()
     { 
         $this->middleware('auth');
+        $about = \App\Models\Company::first();
+        view::share('about',$about);
     }
 
     /**

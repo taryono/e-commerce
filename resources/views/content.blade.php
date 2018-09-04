@@ -6,7 +6,7 @@
                     Assalamu'alaikum wrwb,
                 </h2>
                 <p>
-                    Selamat datang diwebsite kami
+                    {{$about->content}} 
                 </p>
                 <p>
                     <a class="btn btn-primary btn-large" href="#">Selengkapnya</a>
