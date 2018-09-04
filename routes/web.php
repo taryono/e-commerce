@@ -13,7 +13,8 @@
 
 Route::get('/', function () {
     $crafts = \App\Models\Craft::all();
-    return view('welcome', compact('crafts'));
+    $about = \App\Models\Company::first();
+    return view('welcome', compact('crafts','about'));
 })->name('welcome');
 
 Auth::routes();
