@@ -20,9 +20,9 @@
                 <p> 
                     <?php echo $about->content;?>
                 </p>
-                <p>
+                <!--p>
                     <a class="btn btn-primary btn-large" href="#">Selengkapnya</a>
-                </p>
+                </p-->
             </div>
             </div>
         </div>

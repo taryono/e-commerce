@@ -8,9 +8,9 @@
                 <p>
                     {{$about->content}} 
                 </p>
-                <p>
+                <!--p>
                     <a class="btn btn-primary btn-large" href="#">Selengkapnya</a>
-                </p>
+                </p-->
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="col-lg-4"> 
             <img class="rounded-circle" src="/uploads/<?= $craft->craft_image->path . '/' . $craft->craft_image->name ?>" alt="Generic placeholder image" width="140" height="140">
             <h4>{{$craft->name}}</h4>
-            <table class="table table-striped">
+            <!--table class="table table-striped">
                 <tr class="table-success">
                     <th width="100">Kategori</th>
                     <th>{{$craft->category?$craft->category->name:NULL}} </th>
@@ -41,7 +41,7 @@
                     <td width="100">Stok</td>
                     <td>{{$craft->craft_detail?$craft->craft_detail->stock:NULL}} PCS</td>
                 </tr>
-            </table>
+            </table-->
             <p><a class="btn btn-secondary" href="{{route('product.detail',$craft->id)}}" role="button">Lihat Detail »</a></p>
         </div> 
         @endforeach

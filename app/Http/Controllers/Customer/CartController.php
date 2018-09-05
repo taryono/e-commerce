@@ -267,7 +267,8 @@ class CartController extends Controller {
      */
     public function paid($cart_id) {
         $cart = \App\Models\Cart::find($cart_id);
-        return view('customer.cart.paid', compact('cart'));
+        $about = \App\Models\Company::first();
+        return view('customer.cart.paid', compact('cart','about'));
     }
 
 }

@@ -63,15 +63,15 @@
                         <table class="table table-striped"> 
                             <tr class="table-success">
                                 <th>Silahkan Kirim Ke No Rek :</th>
-                                <th>1234</th>
+                                <th>{{$about->bank_account_number}}</th>
                             </tr> 
                             <tr class="table-success">
                                 <th>a.n</th>
-                                <th>Didin Imanudin</th>
+                                <th>{{$about->bank_account_name}}</th>
                             </tr> 
                             <tr class="table-success">
                                 <th>Bank</th>
-                                <th>BRI Cabang Kalimantan</th>
+                                <th>{{$about->bank_name}}</th>
                             </tr> 
                         </table>    
                     </div> 
