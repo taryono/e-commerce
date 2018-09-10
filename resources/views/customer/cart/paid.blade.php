@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('styles')  
+<link rel="stylesheet" href="{{ asset('plugins/editable/bootstrap3-editable/css/bootstrap-editable.css')}}"> 
+@stop
 @section('content')
 <?php $cart_details = $cart->cart_detail; ?>
 
@@ -63,15 +65,33 @@
                         <table class="table table-striped"> 
                             <tr class="table-success">
                                 <th>Silahkan Kirim Ke No Rek :</th>
-                                <th>{{$about->bank_account_number}}</th>
+                                <th>
+                                    @if(Auth::check() && Auth::user()->hasRole('administrator'))
+                                    <a href="#" id="bank_account_number" data-name="bank_account_number" data-type="text" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->bank_account_number}}</a>
+                                    @else 
+                                        {{$about->bank_account_number}}
+                                    @endif 
+                                </th>
                             </tr> 
                             <tr class="table-success">
                                 <th>a.n</th>
-                                <th>{{$about->bank_account_name}}</th>
+                                <th>
+                                    @if(Auth::check() && Auth::user()->hasRole('administrator'))
+                                    <a href="#" id="bank_account_name" data-name="bank_account_name" data-type="textarea" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->bank_account_name}}</a>
+                                    @else 
+                                        {{$about->bank_account_name}}
+                                    @endif  
+                                </th>
                             </tr> 
                             <tr class="table-success">
                                 <th>Bank</th>
-                                <th>{{$about->bank_name}}</th>
+                                <th>
+                                    @if(Auth::check() && Auth::user()->hasRole('administrator'))
+                                    <a href="#" id="bank_name" data-name="bank_name" data-type="text" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->bank_name}}</a>
+                                    @else 
+                                        {{$about->bank_name}}
+                                    @endif  
+                                </th>
                             </tr> 
                         </table>    
                     </div> 
@@ -86,4 +106,14 @@
 
     </div> 
 </div> 
+@section('script')
+ <script src="{{ asset('plugins/editable/bootstrap3-editable/js/bootstrap-editable.min.js')}}" type="text/javascript"></script>
+    <script>
+            $(function(){
+                $.fn.editable.defaults.mode = 'inline';
+                $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
+                $("a#bank_account_number,a#bank_account_name,a#bank_name").editable();
+            });
+        </script>
+@endsection 
 @endsection

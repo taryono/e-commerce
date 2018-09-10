@@ -23,25 +23,7 @@
         @foreach($chunks as $craft) 
         <div class="col-lg-4"> 
             <img class="rounded-circle" src="/uploads/<?= $craft->craft_image->path . '/' . $craft->craft_image->name ?>" alt="Generic placeholder image" width="140" height="140">
-            <h4>{{$craft->name}}</h4>
-            <!--table class="table table-striped">
-                <tr class="table-success">
-                    <th width="100">Kategori</th>
-                    <th>{{$craft->category?$craft->category->name:NULL}} </th>
-                </tr>
-                <tr>
-                    <td width="100">Supplier</td>
-                    <td>{{$craft->supplier?$craft->supplier->name:NULL}} </td>
-                </tr>
-                <tr>
-                    <td width="100">Harga</td>
-                    <td>{{$craft->craft_detail?rupiahFormat($craft->craft_detail->price):NULL}} </td>
-                </tr>
-                <tr>
-                    <td width="100">Stok</td>
-                    <td>{{$craft->craft_detail?$craft->craft_detail->stock:NULL}} PCS</td>
-                </tr>
-            </table-->
+            <h4>{{$craft->name}}</h4> 
             <p><a class="btn btn-secondary" href="{{route('product.detail',$craft->id)}}" role="button">Lihat Detail »</a></p>
         </div> 
         @endforeach

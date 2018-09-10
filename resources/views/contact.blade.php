@@ -12,9 +12,9 @@
                 </h2>
                 <p>
                     @if(Auth::check() && Auth::user()->hasRole('administrator'))
-                    <a href="#" id="contact" data-name="contact" data-type="text" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->contact}}</a>
+                    <a href="#" id="contact" data-name="contact" data-type="textarea" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->contact}}</a>
                     @else 
-                        {{$about->contact}}
+                        {!!$about->contact!!}
                     @endif 
                     
                 </p>

@@ -8,9 +8,9 @@
                 <div class="panel-heading">Tambah Pengiriman</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('shipping.update', $shipping->id) }}"  enctype="multipart/form-data">
+                    <form class="form-horizontal" method="POST" action="{{ route('shipping.update', $shipping->id) }}">
                         {{ csrf_field() }} 
-                        
+                        <input id="_method" type="hidden"  name="_method" value="PUT">
                         <div class="form-group">
                             <label for="courier_id" class="col-md-3 control-label">Supplier</label>
                             <div class="col-md-7">
@@ -32,6 +32,16 @@
                                         <strong>{{ $errors->first('send_date') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class="col-md-3 control-label">Status</label>
+                            <div class="col-md-7">
+                                <select name="status_id" class="form-control example-getting-started" id="status_id">
+                                    <option value="">-- Pilih Status Pengiriman --</option> 
+                                    <option value="1">Terkirim</option>
+                                    <option value="1">Belum Terkirim</option>
+                                </select>
                             </div>
                         </div>
                         <div class="list-cart"></div> 

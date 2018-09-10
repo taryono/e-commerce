@@ -13,9 +13,9 @@
                 
                 <p>
                     @if(Auth::check() && Auth::user()->hasRole('administrator'))
-                    <a href="#" id="content" data-name="content" data-type="text" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->content}}</a>
+                    <a href="#" id="content" data-name="content" data-type="textarea" data-pk="{{$about->id}}" data-url="{{route('about.update', $about->id)}}" data-title="Content">{{$about->content}}</a>
                     @else 
-                        {{$about->content}} 
+                        {!!$about->content!!} 
                     @endif
                     
                 </p> 
