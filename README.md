@@ -36,7 +36,9 @@ Aplikasi e-commerce menggunakan laravel
   setelah itu ketik 
   php artisan config:clear
   
- 9. Jika belum berhasil maka hubungi saya,Terimakasih...
+ 9. Buat database olx kemudian import olx.sql yang ada difolder database
+ 10. jika sudah silahkan buka web dilocal server pke browser dan login dengan username admin@example.com password secret
+ 11. Jika belum berhasil maka hubungi saya,Terimakasih...
 
 
 
