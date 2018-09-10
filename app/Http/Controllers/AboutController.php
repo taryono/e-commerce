@@ -23,8 +23,19 @@ class AboutController extends Controller
                 
             }  
             if ($request->input('name') == "contact") {
-                $company->contact = $request->input('value');
-                
+                $company->contact = $request->input('value'); 
+            }
+            
+            if ($request->input('name') == "bank_account_number") {
+                $company->bank_account_number = $request->input('value'); 
+            }
+            
+            if ($request->input('name') == "bank_account_name") {
+                $company->bank_account_name = $request->input('value'); 
+            }
+            
+            if ($request->input('name') == "bank_name") {
+                $company->bank_name = $request->input('value'); 
             }
             $company->save();
         }

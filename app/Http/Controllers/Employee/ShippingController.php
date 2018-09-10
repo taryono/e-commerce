@@ -41,6 +41,7 @@ class ShippingController extends EmployeeController {
                 $shipping_detail = \App\Models\ShippingDetail::create([
                     'cart_id' => $cart_id,
                     'shipping_id'=> $shipping->id,
+                    'status_id'=> $request->input('status_id'),
                 ]);
             }
         }
@@ -82,6 +83,7 @@ class ShippingController extends EmployeeController {
                 $shipping_detail = \App\Models\ShippingDetail::create([
                     'cart_id' => $cart_id,
                     'shipping_id'=> $shipping->id,
+                    'status_id'=> $request->input('status_id'),
                 ]);
             }
         }
